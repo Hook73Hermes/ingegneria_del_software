@@ -9,7 +9,7 @@
 
 <h1>CONFIGURAZIONE:</h1>
 <br>
-<form action = "indexCONF.php" method = "get">
+<form action = "indexCONF.php" method = "post">
     <p>Cdl:</p>
     <select name = "cdl"><!-- tutti quelli dei test  -->
         <option name = "cdl">T. Ing. Informatica</option>
@@ -37,12 +37,18 @@
 
 <?php
 require_once('C:\Users\franc\Local Sites\genera-prospetti-laurea\app\public\utils\ModificaParametriConfigurazione.php');
-if(isset($_GET["formula"]) && isset($_GET["esami informatici"])){
-    $array_inf = array_map("intval", explode(",", $_GET["esami_informatici"]));
-    $val = new ModificaParametriCofigurazione($_GET["cdl"],$array_inf);
-    $val->modificaFormula($_GET["formula"]);
-    $val->modificaEsamiInformatici();
-    echo "parametri configurati";
+
+// Verifica che la richiesta sia POST
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    
+    if(isset($_POST["formula"]) && isset($_POST["esami_informatici"])){
+        $array_inf = array_map("intval", explode(",", $_POST["esami_informatici"]));
+        $val = new ModificaParametriConfigurazione($_POST["cdl"], $array_inf);
+        $val->modificaFormula($_POST["formula"]);
+        $val->modificaEsamiInformatici();
+        echo "parametri configurati";
+    }
 }
+
 ?>
 </form>

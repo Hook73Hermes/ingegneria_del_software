@@ -58,7 +58,7 @@
 <h1> genera prospetti di laurea </h1>
 
 
-<form action = "generaProspetti.php" method = "get">
+<form action = "generaProspetti.php" method = "post">
 
     <h1> Laureandosi 2 - Gestione Lauree </h1>
     <!-- campi  -->
@@ -99,7 +99,7 @@
 
 
 </form>
-<form action = "inviaProspetti.php" method = "get">
+<form action = "inviaProspetti.php" method = "post">
 
 <br>
 <br>
@@ -118,7 +118,7 @@ action = "index.php" method = "get">-->
 require_once('C:\Users\franc\Local Sites\genera-prospetti-laurea\app\public\utils\AccessoProspetti.php');
 $accesso = new AccessoProspetti;
 $aux = $accesso->fornisciAccesso();
-echo '<a href="' . $aux . '" download> Apri Prospetti</a>'
+echo '<a href="' . htmlspecialchars($aux, ENT_QUOTES, 'UTF-8') . '" download> Apri Prospetti</a>';
 ?>
 <br>
 <!--</form> -->
