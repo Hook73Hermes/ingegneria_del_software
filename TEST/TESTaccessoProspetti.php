@@ -1,5 +1,5 @@
 <?php
-require_once('C:\Users\franc\Local Sites\genera-prospetti-laurea\app\public\utils\AccessoProspetti.php');
+require_once(dirname(__DIR__) . '/utils/AccessoProspetti.php');
 class TESTaccessoProspetti{
     public function test(){
         $val = new AccessoProspetti();

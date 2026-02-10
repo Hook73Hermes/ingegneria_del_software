@@ -19,7 +19,7 @@ class CarrieraLaureandoInformatica2 extends CarrieraLaureando2{
             $this->applicaBonus();
         }
 
-        $e_info = file_get_contents('C:\Users\franc\Local Sites\genera-prospetti-laurea\app\public\data\esami_informatici.json');
+        $e_info = file_get_contents(dirname(__DIR__) . '/data/esami_informatici.json');
         $esami_info = json_decode($e_info, true);
 
         for ($i = 0; $i < sizeof($this->_esami); $i++) {

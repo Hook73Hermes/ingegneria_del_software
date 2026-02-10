@@ -11,51 +11,51 @@
 <br>
 
 <?php
-require_once('C:\Users\franc\Local Sites\genera-prospetti-laurea\app\public\TEST\TESTconfigurazione.php');
+require_once(__DIR__ . '/TEST/TESTconfigurazione.php');
 $val = new TESTconfigurazione();
 $val->test();
 ?>
 <br>
 <?php
-require_once('C:\Users\franc\Local Sites\genera-prospetti-laurea\app\public\TEST\TESTesameLaureando.php');
+require_once(__DIR__ . '/TEST/TESTesameLaureando.php');
 
 $valore = new TESTesameLaureando();
 $valore->test();
 ?>
 <br>
 <?php
-require_once('C:\Users\franc\Local Sites\genera-prospetti-laurea\app\public\TEST\TESTcarrieraLaureandoInformatica.php');
+require_once(__DIR__ . '/TEST/TESTcarrieraLaureandoInformatica.php');
 $val = new TESTcarrieraLaureandoInformatica();
 $val->test();
 ?>
 <br>
 <?php
-require_once('C:\Users\franc\Local Sites\genera-prospetti-laurea\app\public\TEST\TESTcarrieraLaureando.php');
+require_once(__DIR__ . '/TEST/TESTcarrieraLaureando.php');
 $val = new TESTcarrieraLaureando();
 $val->test();
 ?>
 <br>
 <?php
-require_once('C:\Users\franc\Local Sites\genera-prospetti-laurea\app\public\TEST\TESTaccessoProspetti.php');
+require_once(__DIR__ . '/TEST/TESTaccessoProspetti.php');
 $val = new TESTaccessoProspetti();
 $val->test();
 ?>
 <br>
 <?php
-require_once('C:\Users\franc\Local Sites\genera-prospetti-laurea\app\public\TEST\TESTprospettoPDFCommissione.php');
+require_once(__DIR__ . '/TEST/TESTprospettoPDFCommissione.php');
 $val = new TESTprospettoPDFCommissione();
 $val->test();
 ?>
 
 <br>
 <?php
-require_once('C:\Users\franc\Local Sites\genera-prospetti-laurea\app\public\TEST\TESTprospettoPDFLaureando.php');
+require_once(__DIR__ . '/TEST/TESTprospettoPDFLaureando.php');
 $val = new TESTprospettoPDFLaureando();
 $val->test();
 ?>
 <br>
 <?php
-require_once('C:\Users\franc\Local Sites\genera-prospetti-laurea\app\public\TEST\TESTgestioneCarrieraStudente.php');
+require_once(__DIR__ . '/TEST/TESTgestioneCarrieraStudente.php');
 $val = new TESTgestioneCarrieraStudente();
 $val->test();
 ?>

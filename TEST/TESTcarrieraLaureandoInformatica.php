@@ -1,5 +1,5 @@
 <?php
-require_once('C:\Users\franc\Local Sites\genera-prospetti-laurea\app\public\utils\CarrieraLaureandoInformatica2.php');
+require_once(dirname(__DIR__) . '/utils/CarrieraLaureandoInformatica2.php');
 class TESTcarrieraLaureandoInformatica
 {
     public function test()

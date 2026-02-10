@@ -1,5 +1,5 @@
 <?php
-require_once('C:\Users\franc\Local Sites\genera-prospetti-laurea\app\public\utils\GestioneCarrieraStudente2.php');
+require_once(dirname(__DIR__) . '/utils/GestioneCarrieraStudente2.php');
 class TESTgestioneCarrieraStudente{
     public function test(){
         $val = new GestioneCarrieraStudente();

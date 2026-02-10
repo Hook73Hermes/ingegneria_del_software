@@ -36,7 +36,7 @@
     <br>
 
 <?php
-require_once('C:\Users\franc\Local Sites\genera-prospetti-laurea\app\public\utils\ModificaParametriConfigurazione.php');
+require_once(__DIR__ . '/utils/ModificaParametriConfigurazione.php');
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     

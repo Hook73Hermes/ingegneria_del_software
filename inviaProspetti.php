@@ -1,5 +1,5 @@
 <?php
-require_once('C:\Users\franc\Local Sites\genera-prospetti-laurea\app\public\utils\InvioPDFLaureando2.php');
+require_once(__DIR__ . '/utils/InvioPDFLaureando2.php');
 
 // Verifica che la richiesta sia POST
 if ($_SERVER["REQUEST_METHOD"] === "POST") {

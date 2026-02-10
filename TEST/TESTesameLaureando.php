@@ -1,5 +1,5 @@
 <?php
-require_once('C:\Users\franc\Local Sites\genera-prospetti-laurea\app\public\utils\EsameLaureando2.php');
+require_once(dirname(__DIR__) . '/utils/EsameLaureando2.php');
 class TESTesameLaureando{
     public function test(){
         $ausiliaria = new EsameLaureando2();

@@ -83,9 +83,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $prospetto = new ProspettoPdfCommissione2($matricole_array, $data_laurea, $cdl);
         $prospetto->generaProspettiCommissione();
         $prospetto->generaProspettiLaureandi();
-        $prospetto->popolaJSON('C:\Users\franc\Local Sites\genera-prospetti-laurea\app\public\data\ausiliario.json');
-        $prospetto->popolaJSON2('C:\Users\franc\Local Sites\genera-prospetti-laurea\app\public\data\ausiliario2.json');
-        $prospetto->popolaJSON3('C:\Users\franc\Local Sites\genera-prospetti-laurea\app\public\data\ausiliario3.json');
+        $prospetto->popolaJSON(__DIR__ . '/data/ausiliario.json');
+        $prospetto->popolaJSON2(__DIR__ . '/data/ausiliario2.json');
+        $prospetto->popolaJSON3(__DIR__ . '/data/ausiliario3.json');
         echo "i prospetti sono stati generati";
     }
 }
