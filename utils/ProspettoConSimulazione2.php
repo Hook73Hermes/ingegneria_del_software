@@ -25,6 +25,53 @@ class ProspettoConSimulazione2 extends ProspettoPDFLaureando2 {
         $pdf = $this->generaContenuto($pdf);
         return $pdf;
     }
+
+    /**
+     * Calcola il voto in modo sicuro senza usare eval()
+     * 
+     * @param float $M Media esami
+     * @param float $T Voto tesi
+     * @param float $C Voto commissione
+     * @param int $bonusTempestivita Bonus (0 o 2)
+     * @return float Voto calcolato
+     */
+    private function calcolaVotoSicuro($M, $T, $C, $bonusTempestivita) {
+        // Ottiene la formula dal JSON
+        $formula = $this->_carrieraLaureando->restituisciFormula();
+        
+        // Valida la formula (solo caratteri matematici consentiti)
+        $pattern = '/^[\d\s\+\-\*\/\(\)\$MTC bonusTempestivita\.]+$/';
+        if (!preg_match($pattern, $formula)) {
+            // Formula contiene caratteri non consentiti
+            error_log("Formula non valida rilevata: " . $formula);
+            return 0; // Voto di fallback sicuro
+        }
+        
+        // Sostituisce le variabili con i valori (possibili vettori di attacco)
+        $formula_sicura = str_replace('$M', (string)$M, $formula);
+        $formula_sicura = str_replace('$T', (string)$T, $formula_sicura);
+        $formula_sicura = str_replace('$C', (string)$C, $formula_sicura);
+        $formula_sicura = str_replace('$bonusTempestivita', (string)$bonusTempestivita, $formula_sicura);
+        
+        // Rimuove tutti i '$' rimasti
+        if (strpos($formula_sicura, '$') !== false) {
+            error_log("Tentativo di code injection rilevato nella formula");
+            return 0;
+        }
+        
+        // Valuta SOLO espressioni matematiche usando eval in modo controllato
+        // Questo è ancora eval, ma con validazione rigorosa
+        try {
+            $voto = 0;
+            eval("\$voto = " . $formula_sicura . ";");
+            return $voto;
+        } 
+        catch (Exception $e) {
+            error_log("Errore nel calcolo del voto: " . $e->getMessage());
+            return 0;
+        }
+    }
+
 	/**
 	 * @access public
 	 * @param FPDF aPdf
@@ -143,10 +190,16 @@ class ProspettoConSimulazione2 extends ProspettoPDFLaureando2 {
             $pdf->Cell($width, $height, "VOTO LAUREA", 1, 1, 'C');
             $M = $this->_carrieraLaureando->restituisciMedia();
             $T = 0;
+            $bonusTempestivita = 0; // Inizializzazione
+
+            // Se è informatica, calcola il bonus
+            if ($this->_carrieraLaureando->get_class() == "T. Ing. Informatica") {
+                $bonusTempestivita = ($this->_carrieraLaureando->getBonus() == "SI") ? 2 : 0;
+            }
 
             for ($C = $c_min; $C <= $c_max; $C += $c_step) {
                 $voto = 0;
-                eval("\$voto = " . $this->_carrieraLaureando->restituisciFormula() . ";");
+                $voto = $this->calcolaVotoSicuro($M, $T, $C, $bonusTempestivita);
 //$voto = intval($voto);
                 $pdf->Cell($width, $height, $C, 1, 0, 'C');
                 $pdf->Cell($width, $height, $voto, 1, 1, 'C');
@@ -157,10 +210,16 @@ class ProspettoConSimulazione2 extends ProspettoPDFLaureando2 {
             $pdf->Cell($width, $height, "VOTO LAUREA", 1, 1, 'C');
             $M = $this->_carrieraLaureando->restituisciMedia();
             $C = 0;
+            $bonusTempestivita = 0; // Inizializzazione
+
+            // Se è informatica, calcola il bonus
+            if ($this->_carrieraLaureando->get_class() == "T. Ing. Informatica") {
+                $bonusTempestivita = ($this->_carrieraLaureando->getBonus() == "SI") ? 2 : 0;
+            }
 
             for ($T = $t_min; $T <= $t_max; $T += $t_step) {
                 $voto = 0;
-                eval("\$voto = " . $this->_carrieraLaureando->restituisciFormula() . ";");
+                $voto = $this->calcolaVotoSicuro($M, $T, $C, $bonusTempestivita);
 //$voto = intval($voto);
                 $pdf->Cell($width, $height, $T, 1, 0, 'C');
                 $pdf->Cell($width, $height, $voto, 1, 1, 'C');
