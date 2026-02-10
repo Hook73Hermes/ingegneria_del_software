@@ -48,6 +48,7 @@ class CarrieraLaureando {
         $this->calcola_media();
 
     }
+
     public function calcola_media()
     {
         $esami = $this->_esami;
@@ -66,6 +67,7 @@ class CarrieraLaureando {
         $this->_media = $somma_voto_cfu / $somma_cfu_tot;
         return $this->_media;
     }
+
     public function restituisciMedia(){
         return $this->_media;
     }
@@ -83,6 +85,7 @@ class CarrieraLaureando {
     public function restituisciFormula() {
         return $this->_formulaVotoLaurea;
     }
+
     public function creditiCheFannoMedia()
     {
         $crediti = 0;
@@ -119,12 +122,22 @@ class CarrieraLaureando {
             $esame->_faMedia = $faMedia;
             $esame->_curricolare = $curricolare;
             return $esame;
-        } else {
+        } 
+        else {
             return null;
         }
     }
+
     public function get_class(){
         return $this->_cdl;
+    }
+    
+    public function getBonus() {
+        return "NO";  // Default: nessun bonus
+    }
+
+    public function getMediaEsamiInformatici() {
+        return $this->restituisciMedia();  // Default: media generale
     }
 }
 ?>
