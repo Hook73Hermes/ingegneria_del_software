@@ -2,10 +2,12 @@
 class ModificaParametriConfigurazione{
     private $corso_di_laurea;
     private $esami_inf = array();
+
     public function __construct($cdl_in, $informatici){
         $this->corso_di_laurea = $cdl_in;
         $this->esami_inf = $informatici;
     }
+
     public function modificaFormula($new_formula){
         $val = file_get_contents(__DIR__ . '/json_files/formule_laurea.json');
         $val1 = json_decode($val,true);
@@ -19,6 +21,7 @@ class ModificaParametriConfigurazione{
         $new_json1 = json_encode($var1,JSON_PRETTY_PRINT);
         file_put_contents(dirname(__DIR__) . '/data/formule_laurea.json',$new_json1);
     }
+    
     public function modificaEsamiInformatici(){
         $val = file_get_contents(__DIR__ . '/json_files/esami_informatici.json');
         $val1 = json_decode($val,true);

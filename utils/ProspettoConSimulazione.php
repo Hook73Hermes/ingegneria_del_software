@@ -19,6 +19,7 @@ class ProspettoConSimulazione extends ProspettoPDFLaureando {
     public function __construct($matricola, $cdl_in, $data_laurea) {
         parent::__construct($matricola, $cdl_in, $data_laurea);
     }
+    
     public function generaProspettoConSimulazione(){
         $pdf = new FPDF();
         $pdf = $this->generaContenuto($pdf);

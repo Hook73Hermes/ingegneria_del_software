@@ -35,6 +35,7 @@ class CarrieraLaureandoInformatica extends CarrieraLaureando{
     {
         return $this->mediaEsamiInformatici;
     }
+
     private function calcolaMediaEsamiInformatici()
     {
         $somma = 0;
@@ -47,10 +48,12 @@ class CarrieraLaureandoInformatica extends CarrieraLaureando{
         }
         return $somma / $numero;
     }
+
     public function getBonus()
     {
         return $this->bonus;
     }
+
     private function applicaBonus(){
 
         $voto_min = 33;
@@ -63,9 +66,7 @@ class CarrieraLaureandoInformatica extends CarrieraLaureando{
                 $indice_min = $i;
             }
         }
-
         $this->_esami[$indice_min]->_faMedia = 0;
-
     }
 }
 ?>

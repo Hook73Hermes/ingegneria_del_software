@@ -112,9 +112,9 @@ class CarrieraLaureando {
                 $voto = "33";
             }
 
-            trim($voto);
-            //toglie gli spazi bianchi
-            //trim($cfu);
+            // Rimuove gli spazi bianchi
+            $voto = $voto !== null ? trim($voto) : '';
+
             $esame = new EsameLaureando();
             $esame->_nomeEsame = $nome;
             $esame->_votoEsame = $voto;
