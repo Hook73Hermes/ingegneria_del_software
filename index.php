@@ -36,10 +36,9 @@
 <form action = "generaProspetti.php" method = "post">
 
     <h1> Laureandosi 2 - Gestione Lauree </h1>
-    <!-- campi  -->
 
     <p>Cdl:</p>
-    <select name = "cdl"><!-- tutti quelli dei test  -->
+    <select name = "cdl">
         <option name = "cdl">T. Ing. Informatica</option>
         <option name = "cdl">M. Cybersecurity</option>
         <option name = "cdl">M. Ing. Elettronica</option>
@@ -63,91 +62,79 @@
     <input type = "date" name = "data_laurea"/>
 
     <br>
-    <br>
-    <br>
 
-    <!-- bottoni  -->
     <button type = "submit">
         Crea Prospetti
     </button>
 
-
-
 </form>
+
 <form action = "inviaProspetti.php" method = "post">
 
-<br>
-<br>
-
+    <br>
 
     <button type = "submit"> Invia Prospetti </button>
 
-
 </form>
 
 <br>
+
 <?php
 require_once(__DIR__ . '/utils/AccessoProspetti.php');
 $accesso = new AccessoProspetti;
 $aux = $accesso->fornisciAccesso();
 echo '<a href="' . htmlspecialchars($aux, ENT_QUOTES, 'UTF-8') . '" download> Apri Prospetti</a>';
 ?>
-<br>
-<br>
-<br>
-<a href="indexTEST.php">Vai alla pagina 2</a>
 
+<br>
+
+<a href="indexTEST.php">Vai alla pagina 2</a>
 <a href = "indexCONF.php"> Vai alla pagina del configuratore</a>
 
-<!-- AJAX Script per submit form senza reload (V023) -->
 <div id="message-container" style="margin: 20px; padding: 15px; border-radius: 5px; display: none;"></div>
 
+// Script per submittare il form senza effettuare reload della pagina
 <script>
-// ==================== AJAX IMPLEMENTATION (V023) ====================
-
-/**
- * Intercetta il submit del form e usa AJAX invece di reload
- */
+// Intercetta il submit del form e usa AJAX invece di reload
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('form[action="generaProspetti.php"]');
     const messageContainer = document.getElementById('message-container');
     
     if (form) {
         form.addEventListener('submit', function(e) {
-            // PREVIENI il comportamento default (reload pagina)
+            // Previene il reload della pagina (comportamento default)
             e.preventDefault();
             
             // Mostra loading
             showMessage('Loading...', 'info');
             disableForm(true);
             
-            // Raccogli dati dal form
+            // Raccoglie dati dal form
             const formData = new FormData(form);
             
-            // FETCH API - Invia richiesta AJAX
+            // Invia la richiesta AJAX
             fetch('generaProspetti.php', {
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.json())  // Parse JSON response
+            .then(response => response.json()) 
             .then(data => {
-                // SUCCESSO
                 if (data.success) {
-                    showMessage('✓ ' + data.message, 'success');
-                    // Opzionale: resetta form dopo 3 secondi
+                    showMessage(data.message, 'success');
+                    // Resetta il form dopo 3 secondi
                     setTimeout(() => {
                         form.reset();
                         hideMessage();
                     }, 3000);
-                } else {
-                    // ERRORE dal server
-                    showMessage('✗ ' + data.message, 'error');
+                } 
+                else {
+                    showMessage(data.message, 'error');
                 }
                 disableForm(false);
             })
             .catch(error => {
-                // ERRORE di rete o parsing
-                showMessage('✗ Errore di connessione: ' + error.message, 'error');
+                // Errore di rete o parsing
+                showMessage('Errore di connessione: ' + error.message, 'error');
                 disableForm(false);
             });
         });
@@ -169,11 +156,13 @@ function showMessage(message, type) {
         container.style.backgroundColor = '#d4edda';
         container.style.color = '#155724';
         container.style.border = '1px solid #c3e6cb';
-    } else if (type === 'error') {
+    } 
+    else if (type === 'error') {
         container.style.backgroundColor = '#f8d7da';
         container.style.color = '#721c24';
         container.style.border = '1px solid #f5c6cb';
-    } else { // info/loading
+    } 
+    else {
         container.style.backgroundColor = '#d1ecf1';
         container.style.color = '#0c5460';
         container.style.border = '1px solid #bee5eb';
@@ -203,7 +192,7 @@ function disableForm(disabled) {
     const submitBtn = form.querySelector('button[type="submit"]');
     if (disabled) {
         submitBtn.setAttribute('data-original-text', submitBtn.textContent);
-        submitBtn.textContent = '⏳ Elaborazione...';
+        submitBtn.textContent = 'Elaborazione...';
     } else {
         const originalText = submitBtn.getAttribute('data-original-text');
         if (originalText) {
@@ -211,8 +200,6 @@ function disableForm(disabled) {
         }
     }
 }
-
-// ==================== END AJAX IMPLEMENTATION ====================
 </script>
 
 </body>

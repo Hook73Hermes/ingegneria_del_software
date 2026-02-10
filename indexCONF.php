@@ -11,7 +11,7 @@
 <br>
 <form action = "indexCONF.php" method = "post">
     <p>Cdl:</p>
-    <select name = "cdl"><!-- tutti quelli dei test  -->
+    <select name = "cdl">
         <option name = "cdl">T. Ing. Informatica</option>
         <option name = "cdl">M. Cybersecurity</option>
         <option name = "cdl">M. Ing. Elettronica</option>

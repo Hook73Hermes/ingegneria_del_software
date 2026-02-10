@@ -24,7 +24,7 @@ class CarrieraLaureando {
 
 	public function __construct($matricola, $cdl_in){
         //costruisco un oggetto carrieraLaureando del laureando con matricola matricola
-        $this->matricola = $matricola;
+        $this->_matricola = $matricola;
         //chiamo gcs per prendere tutte le info del laureando
         $gcs = new GestioneCarrieraStudente();
         $anagrafica_json = $gcs->restituisciAnagraficaStudente($matricola);

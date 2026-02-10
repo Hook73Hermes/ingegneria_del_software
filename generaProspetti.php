@@ -85,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $prospetto->generaProspettiLaureandi();
         $prospetto->popolaJSON(__DIR__ . '/data/ausiliario.json');
         
-        // Risposta JSON per AJAX (V023)
+        // Risposta JSON per AJAX
         header('Content-Type: application/json');
         echo json_encode([
             'success' => true,
