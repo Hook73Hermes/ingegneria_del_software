@@ -94,9 +94,9 @@ class ProspettoPDFCommissione {
     */
     public function popolaJSON($nomeFile){
         $dati = [
-        'matricole' => $this->_matricole,
-        'cdl' => $this->_cdl,
-        'data_laurea' => $this->_dataLaurea
+            'matricole' => $this->_matricole,
+            'cdl' => $this->_cdl,
+            'data_laurea' => $this->_dataLaurea
         ];
         $json_string = json_encode($dati, JSON_PRETTY_PRINT);
         file_put_contents($nomeFile, $json_string);

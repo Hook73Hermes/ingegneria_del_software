@@ -99,10 +99,7 @@ class CarrieraLaureando {
     private function inserisci_esame($nome, $voto, $cfu, $faMedia, $curricolare)
     {
 
-        if (
-        $nome == "LIBERA SCELTA PER RICONOSCIMENTI" || $nome == "PROVA FINALE" || $nome == "TEST DI VALUTAZIONE DI INGEGNERIA"
-        || $nome == "PROVA DI LINGUA INGLESE B2" || $voto == 0
-        ) {
+        if ($nome == "LIBERA SCELTA PER RICONOSCIMENTI" || $nome == "PROVA FINALE" || $nome == "TEST DI VALUTAZIONE DI INGEGNERIA" || $nome == "PROVA DI LINGUA INGLESE B2" || $voto == 0) {
             $faMedia = 0;
         }
         // non metto esami con parametri malformati

@@ -48,19 +48,19 @@
     </div>
 
     <div class="test-section">
-<?php
-require_once(__DIR__ . '/TEST/TESTcarrieraLaureando.php');
-$test1 = new TESTcarrieraLaureando();
-$test1->test();
-?>
+        <?php
+        require_once(__DIR__ . '/TEST/TESTcarrieraLaureando.php');
+        $test1 = new TESTcarrieraLaureando();
+        $test1->test();
+        ?>
     </div>
 
     <div class="test-section">
-<?php
-require_once(__DIR__ . '/TEST/TESTconfigurazione.php');
-$test2 = new TESTconfigurazione();
-$test2->test();
-?>
+        <?php
+        require_once(__DIR__ . '/TEST/TESTconfigurazione.php');
+        $test2 = new TESTconfigurazione();
+        $test2->test();
+        ?>
     </div>
 
     <div class="nav">

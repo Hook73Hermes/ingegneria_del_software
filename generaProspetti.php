@@ -98,16 +98,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         // Lista di tutti i Cdl consentiti
         $cdl_whitelist = [
-        'T. Ing. Informatica',
-        'M. Cybersecurity',
-        'M. Ing. Elettronica',
-        'T. Ing. Biomedica',
-        'M. Ing. Biomedica, Bionics Engineering',
-        'T. Ing. Elettronica',
-        'T. Ing. delle Telecomunicazioni',
-        'M. Ing. delle Telecomunicazioni',
-        'M. Computer Engineering, Artificial Intelligence and Data Enginering',
-        'M. Ing. Robotica e della Automazione'
+            'T. Ing. Informatica',
+            'M. Cybersecurity',
+            'M. Ing. Elettronica',
+            'T. Ing. Biomedica',
+            'M. Ing. Biomedica, Bionics Engineering',
+            'T. Ing. Elettronica',
+            'T. Ing. delle Telecomunicazioni',
+            'M. Ing. delle Telecomunicazioni',
+            'M. Computer Engineering, Artificial Intelligence and Data Enginering',
+            'M. Ing. Robotica e della Automazione'
         ];
 
         // Verifica che il Cdl sia nella lista consentita (approccio whitelist)
@@ -132,11 +132,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // Risposta JSON per AJAX (V023)
         header('Content-Type: application/json');
         echo json_encode([
-        'success' => true,
-        'message' => 'Prospetti generati con successo!',
-        'matricole' => $matricole_array,
-        'cdl' => $cdl,
-        'data_laurea' => $data_laurea
+            'success' => true,
+            'message' => 'Prospetti generati con successo!',
+            'matricole' => $matricole_array,
+            'cdl' => $cdl,
+            'data_laurea' => $data_laurea
         ]);
     }
 }

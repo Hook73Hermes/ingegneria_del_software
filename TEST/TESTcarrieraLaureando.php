@@ -28,16 +28,16 @@ class TESTcarrieraLaureando{
 
             // ASSERT: Deve avere esami
             $this->assertTrue(
-            count($carriera->_esami) > 0,
-            "La carriera deve contenere esami"
+                count($carriera->_esami) > 0,
+                "La carriera deve contenere esami"
             );
 
             // ASSERT: Primo esame deve essere ELETTROTECNICA
             $primo_esame = "ELETTROTECNICA";
             $this->assertEquals(
-            $carriera->_esami[0]->_nomeEsame,
-            $primo_esame,
-            "Il primo esame deve essere ELETTROTECNICA"
+                $carriera->_esami[0]->_nomeEsame,
+                $primo_esame,
+                "Il primo esame deve essere ELETTROTECNICA"
             );
 
         } catch (Exception $e) {
@@ -56,14 +56,14 @@ class TESTcarrieraLaureando{
 
         // ASSERT: Media deve essere un numero
         $this->assertTrue(
-        is_numeric($media),
-        "La media deve essere un numero"
+            is_numeric($media),
+            "La media deve essere un numero"
         );
 
         // ASSERT: Media deve essere nel range valido (18-30)
         $this->assertTrue(
-        $media >= 18 && $media <= 30,
-        "La media deve essere tra 18 e 30, ottenuto: " . $media
+            $media >= 18 && $media <= 30,
+            "La media deve essere tra 18 e 30, ottenuto: " . $media
         );
     }
 
@@ -79,13 +79,13 @@ class TESTcarrieraLaureando{
 
         // ASSERT: Crediti devono essere positivi
         $this->assertTrue(
-        $crediti_media > 0,
-        "Crediti che fanno media devono essere > 0"
+            $crediti_media > 0,
+            "Crediti che fanno media devono essere > 0"
         );
 
         $this->assertTrue(
-        $crediti_totali >= $crediti_media,
-        "Crediti totali devono essere >= crediti che fanno media"
+            $crediti_totali >= $crediti_media,
+            "Crediti totali devono essere >= crediti che fanno media"
         );
     }
 

@@ -28,8 +28,8 @@ class TESTconfigurazione{
 
         // ASSERT: File deve esistere
         $this->assertTrue(
-        file_exists($path),
-        "File formule_laurea.json deve esistere"
+            file_exists($path),
+            "File formule_laurea.json deve esistere"
         );
 
         // ASSERT: File deve essere JSON valido
@@ -37,14 +37,14 @@ class TESTconfigurazione{
         $data = json_decode($content, true);
 
         $this->assertTrue(
-        $data !== null,
-        "File deve contenere JSON valido"
+            $data !== null,
+            "File deve contenere JSON valido"
         );
 
         // ASSERT: Deve contenere CDL "T. Ing. Informatica"
         $this->assertTrue(
-        isset($data["T. Ing. Informatica"]),
-        "Deve contenere configurazione per T. Ing. Informatica"
+            isset($data["T. Ing. Informatica"]),
+            "Deve contenere configurazione per T. Ing. Informatica"
         );
     }
 
@@ -61,8 +61,8 @@ class TESTconfigurazione{
         try {
             // Crea oggetto configurazione
             $config = new ModificaParametriConfigurazione(
-            "T. Ing. Informatica",
-            array("ELETTROTECNICA")
+                "T. Ing. Informatica",
+                array("ELETTROTECNICA")
             );
 
             // Modifica formula
@@ -70,8 +70,8 @@ class TESTconfigurazione{
 
             // ASSERT: L'oggetto ?? stato creato
             $this->assertTrue(
-            $config !== null,
-            "Oggetto ModificaParametriConfigurazione creato"
+                $config !== null,
+                "Oggetto ModificaParametriConfigurazione creato"
             );
 
             // NOTA: Non testiamo la scrittura su file perch?? non vogliamo

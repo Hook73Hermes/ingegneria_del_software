@@ -48,41 +48,26 @@
             <option name="cdl">M. Ing. Robotica e della Automazione</option>
         </select>
 
-        <br>
-
         <p>Matricole:</p>
         <textarea name="matricole"></textarea>
-
-        <br>
 
         <p>Data Laurea:</p>
         <input type="date" name="data_laurea"/>
 
-        <br>
-        <br>
-        <br>
-
         <button type="submit">Crea Prospetti</button>
     </form>
-
-    <br>
-    <br>
-    <br>
 
     <form action="inviaProspetti.php" method="post">
         <button type="submit">Invia Prospetti</button>
     </form>
 
-<?php
-if (isset($_GET["aux"])) {
-    $aux = $_GET["aux"];
-    echo '<a href="' . htmlspecialchars($aux, ENT_QUOTES, 'UTF-8') . '" download> Apri Prospetti</a>';
-}
-?>
+    <?php
+    if (isset($_GET["aux"])) {
+        $aux = $_GET["aux"];
+        echo '<a href="' . htmlspecialchars($aux, ENT_QUOTES, 'UTF-8') . '" download> Apri Prospetti</a>';
+    }
+    ?>
 
-    <br>
-    <br>
-    <br>
     <a href="indexTEST.php">Vai alla pagina 2</a>
 
     <a href="indexCONF.php">Vai alla pagina del configuratore</a>
