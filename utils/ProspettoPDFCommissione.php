@@ -87,17 +87,20 @@ class ProspettoPDFCommissione {
             $prospetto->generaProspetto();
         }
     }
+    /**
+     * Salva i dati della sessione in un unico file JSON strutturato
+     * Unifica matricole, CDL e data in un unico file (V024)
+     * 
+     * @param string $nomeFile Path del file JSON
+     */
     public function popolaJSON($nomeFile){
-        $json_string = json_encode($this->_matricole,JSON_PRETTY_PRINT);
-        file_put_contents($nomeFile,$json_string);
-    }
-    public function popolaJSON2($nomeFile){
-        $json_string = json_encode($this->_cdl,JSON_PRETTY_PRINT);
-        file_put_contents($nomeFile,$json_string);
-    }
-    public function popolaJSON3($nomeFile){
-        $json_string = json_encode($this->_dataLaurea,JSON_PRETTY_PRINT);
-        file_put_contents($nomeFile,$json_string);
+        $dati = [
+            'matricole' => $this->_matricole,
+            'cdl' => $this->_cdl,
+            'data_laurea' => $this->_dataLaurea
+        ];
+        $json_string = json_encode($dati, JSON_PRETTY_PRINT);
+        file_put_contents($nomeFile, $json_string);
     }
 }
 ?>

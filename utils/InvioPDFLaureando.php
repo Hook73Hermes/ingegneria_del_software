@@ -28,13 +28,15 @@ class InvioPDFLaureando {
      */
 
     public function __construct(){
+        // Legge il file JSON unificato (V024)
         $json_content = file_get_contents(dirname(__DIR__) . '/data/ausiliario.json');
-
-        $this->_matricole = json_decode($json_content,true);
-        $json_content2 = file_get_contents(dirname(__DIR__) . '/data/ausiliario2.json');
-        $this->_cdl = json_decode($json_content2,true);
-        $json_content3 = file_get_contents(dirname(__DIR__) . '/data/ausiliario3.json');
-        $this->_dataLaurea = json_decode($json_content3,true);
+        $dati = json_decode($json_content, true);
+        
+        // Estrae i campi dalla struttura unificata
+        $this->_matricole = $dati['matricole'];
+        $this->_cdl = $dati['cdl'];
+        $this->_dataLaurea = $dati['data_laurea'];
+    }
     }
     public function invioProspetti(){
         for ($j = 0; $j < sizeof($this->_matricole); $j++) {

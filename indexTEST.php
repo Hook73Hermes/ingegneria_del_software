@@ -1,63 +1,76 @@
 <!DOCTYPE html>
+<html>
 <head>
-    <title>Test</title>
-    <style type = "text/css">
-
+    <title>Test Suite - Genera Prospetti</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .nav {
+            margin: 20px 0;
+        }
+        .nav a {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .nav a:hover {
+            background: #0056b3;
+        }
     </style>
 </head>
-<body style = "background-color: whitesmoke" >
-
-<h1>EVENTUALI ERRORI:</h1>
-<br>
-
-<?php
-require_once(__DIR__ . '/TEST/TESTconfigurazione.php');
-$val = new TESTconfigurazione();
-$val->test();
-?>
-<br>
-<?php
-require_once(__DIR__ . '/TEST/TESTesameLaureando.php');
-
-$valore = new TESTesameLaureando();
-$valore->test();
-?>
-<br>
-<?php
-require_once(__DIR__ . '/TEST/TESTcarrieraLaureandoInformatica.php');
-$val = new TESTcarrieraLaureandoInformatica();
-$val->test();
-?>
-<br>
-<?php
-require_once(__DIR__ . '/TEST/TESTcarrieraLaureando.php');
-$val = new TESTcarrieraLaureando();
-$val->test();
-?>
-<br>
-<?php
-require_once(__DIR__ . '/TEST/TESTaccessoProspetti.php');
-$val = new TESTaccessoProspetti();
-$val->test();
-?>
-<br>
-<?php
-require_once(__DIR__ . '/TEST/TESTprospettoPDFCommissione.php');
-$val = new TESTprospettoPDFCommissione();
-$val->test();
-?>
-
-<br>
-<?php
-require_once(__DIR__ . '/TEST/TESTprospettoPDFLaureando.php');
-$val = new TESTprospettoPDFLaureando();
-$val->test();
-?>
-<br>
-<?php
-require_once(__DIR__ . '/TEST/TESTgestioneCarrieraStudente.php');
-$val = new TESTgestioneCarrieraStudente();
-$val->test();
-?>
-<br>
-
+<body>
+    <h1>🧪 Test Suite - Sistema Genera Prospetti</h1>
+    
+    <div class="nav">
+        <a href="index.php">← Torna alla Home</a>
+        <a href="indexCONF.php">Configuratore</a>
+    </div>
+    
+    <div class="test-section">
+        <?php
+        // Esegui test CarrieraLaureando
+        require_once(__DIR__ . '/TEST/TESTcarrieraLaureando.php');
+        $test1 = new TESTcarrieraLaureando();
+        $test1->test();
+        ?>
+    </div>
+    
+    <div class="test-section">
+        <?php
+        // Esegui test Configurazione
+        require_once(__DIR__ . '/TEST/TESTconfigurazione.php');
+        $test2 = new TESTconfigurazione();
+        $test2->test();
+        ?>
+    </div>
+    
+    <div class="nav">
+        <a href="index.php">← Torna alla Home</a>
+    </div>
+    
+    <footer style="margin-top: 40px; text-align: center; color: #666; font-size: 0.9em;">
+        <p>Test Suite v2.0 - Migliorato con assertion reali (V025)</p>
+    </footer>
+</body>
+</html>

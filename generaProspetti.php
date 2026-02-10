@@ -7,12 +7,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (isset($_POST["matricole"])) {
         // Verifica che la variabile sia settata e non sia una stringa vuota
         if (!isset($_POST["matricole"]) || empty($_POST["matricole"])) {
-            die("Errore: Nessuna matricola fornita");
+            header("Content-Type: application/json"); echo json_encode(["success" => false, "message" => "Errore: Nessuna matricola fornita"]); exit();
         }
 
         // Espressione regola che matcha soltanto numeri separati da virgole (con eventuali spazi)
         if (!preg_match('/^\d+(,\s*\d+)*$/', $_POST["matricole"])) {
-            die("Errore: Formato matricole non valido. Usa solo numeri separati da virgola (es: 123456, 234567)");
+            header("Content-Type: application/json"); echo json_encode(["success" => false, "message" => "Errore: Formato matricole non valido. Usa solo numeri separati da virgola (es: 123456, 234567)"]); exit();
         }
 
         // Variabile locale validata
@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         // Verifica che la variabile sia settata e non sia una stringa vuota
         if (!isset($_POST["data_laurea"]) || empty($_POST["data_laurea"])) {
-            die("Errore: Data di laurea non fornita");
+            header("Content-Type: application/json"); echo json_encode(["success" => false, "message" => "Errore: Data di laurea non fornita"]); exit();
         }
 
         // Variabile locale da validare
@@ -28,13 +28,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         // Espressione regolare che controlla la correttezza della forma
         if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $data_laurea)) {
-            die("Errore: Formato data non valido. Usa il formato AAAA-MM-GG (es: 2024-07-15)");
+            header("Content-Type: application/json"); echo json_encode(["success" => false, "message" => "Errore: Formato data non valido. Usa il formato AAAA-MM-GG (es: 2024-07-15)"]); exit();
         }
 
         // Verifica che la data esista
         $timestamp = strtotime($data_laurea);
         if ($timestamp === false) {
-            die("Errore: Data non valida. Controlla che giorno e mese siano corretti");
+            header("Content-Type: application/json"); echo json_encode(["success" => false, "message" => "Errore: Data non valida. Controlla che giorno e mese siano corretti"]); exit();
         }
 
         // Variabili locali con data attuale e data tra due anni esatti da utilizzare per confronto
@@ -46,15 +46,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         // Verifica che la data sia compresa tra oggi e due anni successivi
         if ($data_laurea_obj < $oggi) {
-            die("Errore: La data di laurea non può essere nel passato");
+            header("Content-Type: application/json"); echo json_encode(["success" => false, "message" => "Errore: La data di laurea non può essere nel passato"]); exit();
         }
         else if ($data_laurea_obj > $data_massima) {
-            die("Errore: La data di laurea non può essere superiore a 2 anni nel futuro");
+            header("Content-Type: application/json"); echo json_encode(["success" => false, "message" => "Errore: La data di laurea non può essere superiore a 2 anni nel futuro"]); exit();
         }
 
         // Verifica che la variabile sia settata e non sia una stringa vuota
         if (!isset($_POST["cdl"]) || empty($_POST["cdl"])) {
-            die("Errore: Corso di Laurea non fornito");
+            header("Content-Type: application/json"); echo json_encode(["success" => false, "message" => "Errore: Corso di Laurea non fornito"]); exit();
         }
 
         // Lista di tutti i Cdl consentiti
@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         // Verifica che il Cdl sia nella lista consentita (approccio whitelist)
         if (!in_array($_POST["cdl"], $cdl_whitelist, true)) {
-            die("Errore: Corso di Laurea non valido. Seleziona un corso dalla lista.");
+            header("Content-Type: application/json"); echo json_encode(["success" => false, "message" => "Errore: Corso di Laurea non valido. Seleziona un corso dalla lista."]); exit();
         }
 
         // Variabile locale validata
@@ -84,9 +84,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $prospetto->generaProspettiCommissione();
         $prospetto->generaProspettiLaureandi();
         $prospetto->popolaJSON(__DIR__ . '/data/ausiliario.json');
-        $prospetto->popolaJSON2(__DIR__ . '/data/ausiliario2.json');
-        $prospetto->popolaJSON3(__DIR__ . '/data/ausiliario3.json');
-        echo "i prospetti sono stati generati";
+        
+        // Risposta JSON per AJAX (V023)
+        header('Content-Type: application/json');
+        echo json_encode([
+            'success' => true,
+            'message' => 'Prospetti generati con successo!',
+            'matricole' => $matricole_array,
+            'cdl' => $cdl,
+            'data_laurea' => $data_laurea
+        ]);
     }
 }
 ?>
