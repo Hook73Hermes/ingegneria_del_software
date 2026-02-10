@@ -28,7 +28,7 @@ class TESTcarrieraLaureandoInformatica
         $val1 = new CarrieraLaureandoInformatica(123456, "T. Ing. Informatica", "2018_01_05");
 
         if($val->restituisciMedia() == $val1->restituisciMedia())
-            echo "il bonus non viene applicato correttamente";
+        echo "il bonus non viene applicato correttamente";
     }
 }
 ?>

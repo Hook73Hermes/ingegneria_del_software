@@ -1,43 +1,43 @@
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-require_once(realpath(dirname(__FILE__)) . '/ProspettoPDFLaureando.php');
+require_once(__DIR__ . '/ProspettoPDFLaureando.php');
 require_once(dirname(__DIR__) . '/PHPMailer/src/Exception.php');
 require_once(dirname(__DIR__) . '/PHPMailer/src/PHPMailer.php');
 require_once(dirname(__DIR__) . '/PHPMailer/src/SMTP.php');
 /**
- * @access public
- * @author franc
- */
+* @access public
+* @author franc
+*/
 
 class InvioPDFLaureando {
     /**
-     * @AttributeType int[]
-     */
+    * @AttributeType int[]
+    */
     private $_matricole;
     /**
-     * @AssociationType ProspettoPDFLaureando
-     */
+    * @AssociationType ProspettoPDFLaureando
+    */
     private $_cdl;
     private $_dataLaurea;
 
     /**
-     * @access public
-     * @param int[] aMatricole
-     * @ParamType aMatricole int[]
-     */
+    * @access public
+    * @param int[] aMatricole
+    * @ParamType aMatricole int[]
+    */
 
     public function __construct(){
         // Legge il file JSON unificato (V024)
         $json_content = file_get_contents(dirname(__DIR__) . '/data/ausiliario.json');
         $dati = json_decode($json_content, true);
-        
+
         // Estrae i campi dalla struttura unificata
         $this->_matricole = $dati['matricole'];
         $this->_cdl = $dati['cdl'];
         $this->_dataLaurea = $dati['data_laurea'];
     }
-    }
+
     public function invioProspetti(){
         for ($j = 0; $j < sizeof($this->_matricole); $j++) {
             $prospetto = new ProspettoPDFLaureando($this->_matricole[$j], $this->_cdl, $this->_dataLaurea);
@@ -45,10 +45,10 @@ class InvioPDFLaureando {
         }
     }
     /**
-     * @access public
-     * @return void
-     * @ReturnType void
-     */
+    * @access public
+    * @return void
+    * @ReturnType void
+    */
     public function inviaProspetto($studente_carriera) {
 
         $messaggio = new PHPMailer();
@@ -62,18 +62,17 @@ class InvioPDFLaureando {
         $messaggio->AddAddress($studente_carriera->_email);
         $messaggio->Subject='Appello di laurea in Ing. TEST- indicatori per voto di laurea';
         $messaggio->Body=stripslashes('Gentile laureando/laureanda,
-		Allego un prospetto contenente: la sua carriera, gli indicatori e la formula che la commissione adopererà per determinare il voto di laurea.
-		La prego di prendere visione dei dati relativi agli esami.
-		In caso di dubbi scrivere a: ...
-		
-		Alcune spiegazioni:
-		- gli esami che non hanno un voto in trentesimi, hanno voto nominale zero al posto di giudizio o idoneita\', in quanto non contribuiscono al calcolo della media ma solo al numero di crediti curriculari;
-		- gli esami che non fanno media (pur contribuendo ai crediti curriculari) non hanno la spunta nella colonna MED;
-		- il voto di tesi (T) appare nominalmente a zero in quanto verra\' determinato in sede di laurea, e va da 18 a 30.
-		
-		 Cordiali saluti
-		 Unità Didattica DII');
+        Allego un prospetto contenente: la sua carriera, gli indicatori e la formula che la commissione adoperer?? per determinare il voto di laurea.
+        La prego di prendere visione dei dati relativi agli esami.
+        In caso di dubbi scrivere a: ...
 
+        Alcune spiegazioni:
+        - gli esami che non hanno un voto in trentesimi, hanno voto nominale zero al posto di giudizio o idoneita\', in quanto non contribuiscono al calcolo della media ma solo al numero di crediti curriculari;
+        - gli esami che non fanno media (pur contribuendo ai crediti curriculari) non hanno la spunta nella colonna MED;
+        - il voto di tesi (T) appare nominalmente a zero in quanto verra\' determinato in sede di laurea, e va da 18 a 30.
+
+        Cordiali saluti
+        Unit?? Didattica DII');
 
         $messaggio->AddAttachment("data\pdf_generati\\" . $studente_carriera->_matricola . "-prospetto.pdf");
 

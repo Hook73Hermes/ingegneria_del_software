@@ -7,10 +7,10 @@ class TESTesameLaureando{
         $ausiliaria->_votoEsame = 28;
         $aux = $ausiliaria->_nomeEsame;
         if($aux != "STATISTICA")
-            echo "errore nome esame su esameLaureando2";
+        echo "errore nome esame su esameLaureando2";
         $aux1 = $ausiliaria->_votoEsame;
         if($aux1 != 28)
-            echo "errore voto esame su esameLaureando2";
+        echo "errore voto esame su esameLaureando2";
         echo "EsameLaureando : TEST SUPERATI";
     }
 }

@@ -40,33 +40,35 @@
     </style>
 </head>
 <body>
-    <h1>🧪 Test Suite - Sistema Genera Prospetti</h1>
-    
+    <h1>Test Suite - Sistema Genera Prospetti</h1>
+
     <div class="nav">
-        <a href="index.php">← Torna alla Home</a>
+        <a href="index.php">Torna alla Home</a>
         <a href="indexCONF.php">Configuratore</a>
     </div>
-    
+
     <div class="test-section">
-        <?php
-        // Esegue test CarrieraLaureando
-        require_once(__DIR__ . '/TEST/TESTcarrieraLaureando.php');
-        $test1 = new TESTcarrieraLaureando();
-        $test1->test();
-        ?>
+<?php
+require_once(__DIR__ . '/TEST/TESTcarrieraLaureando.php');
+$test1 = new TESTcarrieraLaureando();
+$test1->test();
+?>
     </div>
-    
+
     <div class="test-section">
-        <?php
-        // Esegue test Configurazione
-        require_once(__DIR__ . '/TEST/TESTconfigurazione.php');
-        $test2 = new TESTconfigurazione();
-        $test2->test();
-        ?>
+<?php
+require_once(__DIR__ . '/TEST/TESTconfigurazione.php');
+$test2 = new TESTconfigurazione();
+$test2->test();
+?>
     </div>
-    
+
     <div class="nav">
-        <a href="index.php">← Torna alla Home</a>
+        <a href="index.php">Torna alla Home</a>
     </div>
+
+    <footer style="margin-top: 40px; text-align: center; color: #666; font-size: 0.9em;">
+        <p>Test Suite v2.0 - Migliorato con assertion reali (V025)</p>
+    </footer>
 </body>
 </html>

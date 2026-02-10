@@ -7,8 +7,8 @@ class TESTgestioneCarrieraStudente{
         $aux1 = json_decode($aux,true);
         $aux2 = $aux1["Entries"]["Entry"]["nome"];
         if($aux2 == "GIUSEPPE")
-            echo "GestioneCarrieraStudente : TEST SUPERATI";
+        echo "GestioneCarrieraStudente : TEST SUPERATI";
         else
-            echo "GestioneCarrieraStudente non preleva correttamente i dati";
+        echo "GestioneCarrieraStudente non preleva correttamente i dati";
     }
 }

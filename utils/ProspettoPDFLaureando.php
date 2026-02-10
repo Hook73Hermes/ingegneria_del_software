@@ -1,37 +1,36 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/CarrieraLaureandoInformatica.php');
-require_once(realpath(dirname(__FILE__)) . '/CarrieraLaureando.php');
-require_once(realpath(dirname(__FILE__)) . '/fpdf.php');
+require_once(__DIR__ . '/CarrieraLaureandoInformatica.php');
+require_once(__DIR__ . '/CarrieraLaureando.php');
+require_once(__DIR__ . '/fpdf.php');
 /**
- * @access public
- * @author franc
- */
+* @access public
+* @author franc
+*/
 
 class ProspettoPDFLaureando {
-	/**
-	 * @AttributeType CarrieraLaureando
-	 */
-	public $_carrieraLaureando;
-	/**
-	 * @AttributeType int
-	 */
-	protected $_matricola;
-	/**
-	 * @AttributeType string
-	 */
-	protected $_dataLaurea;
+    /**
+    * @AttributeType CarrieraLaureando
+    */
+    public $_carrieraLaureando;
+    /**
+    * @AttributeType int
+    */
+    protected $_matricola;
+    /**
+    * @AttributeType string
+    */
+    protected $_dataLaurea;
 
-
-	/**
-	 * @access public
-	 * @param int aMatricola
-	 * @param string aCdl
-	 * @param string aDataLaurea
-	 * @ParamType aMatricola int
-	 * @ParamType aCdl string
-	 * @ParamType aDataLaurea string
-	 */
-	public function __construct($aMatricola, $aCdl, $aDataLaurea) {
+    /**
+    * @access public
+    * @param int aMatricola
+    * @param string aCdl
+    * @param string aDataLaurea
+    * @ParamType aMatricola int
+    * @ParamType aCdl string
+    * @ParamType aDataLaurea string
+    */
+    public function __construct($aMatricola, $aCdl, $aDataLaurea) {
         if ($aCdl != "INGEGNERIA INFORMATICA (IFO-L)" && $aCdl != "T. Ing. Informatica") {
             $this->_carrieraLaureando = new CarrieraLaureando($aMatricola, $aCdl);
         } else {
@@ -39,49 +38,48 @@ class ProspettoPDFLaureando {
         }
         $this->_matricola = $aMatricola;
         $this->_dataLaurea = $aDataLaurea;
-	}
+    }
 
-	/**
-	 * @access public
-	 * @return void
-	 * @ReturnType void
-	 */
-	public function generaProspetto() {
+    /**
+    * @access public
+    * @return void
+    * @ReturnType void
+    */
+    public function generaProspetto() {
         // genera il prospetto in pdf e lo salva in un percorso specifico
         // dati utili;
         $font_family = "Arial";
         $tipo_informatico = 0;
-// indica se il laureando è informatico, viene modificato da solo
-
+        // indica se il laureando ?? informatico, viene modificato da solo
 
         $pdf = new FPDF();
         $pdf->AddPage();
         $pdf->SetFont($font_family, "", 16);
-// --------------------- INTESTAZIONE : cdl e scritta prospetto --------------------------
+        // --------------------- INTESTAZIONE : cdl e scritta prospetto --------------------------
 
         $pdf->Cell(0, 6, $this->_carrieraLaureando->_cdl, 0, 1, 'C');
-// dimensioni, testo, bordo, a capo, align
+        // dimensioni, testo, bordo, a capo, align
         $pdf->Cell(0, 8, 'CARRIERA E SIMULAZIONE DEL VOTO DI LAUREA', 0, 1, 'C');
         $pdf->Ln(2);
-// ------------------------------ INFORMAZIONI ANAGRAFICHE DELLO STUDENTE ------------------------------
+        // ------------------------------ INFORMAZIONI ANAGRAFICHE DELLO STUDENTE ------------------------------
 
         $pdf->SetFont($font_family, "", 9);
-        $anagrafica_stringa = "Matricola:                       " . $this->_matricola . //attenzione: quelli che sembrano spazi in realtà sono &Nbsp perché fpdf non stampa spazi
-            "\nNome:                            " . $this->_carrieraLaureando->_nome .
-            "\nCognome:                      " . $this->_carrieraLaureando->_cognome .
-            "\nEmail:                             " . $this->_carrieraLaureando->_email .
-            "\nData:                              " . $this->_dataLaurea;
-//aggiungere bonus if inf
+        $anagrafica_stringa = "Matricola: " . $this->_matricola . //attenzione: quelli che sembrano spazi in realt?? sono &Nbsp perch?? fpdf non stampa spazi
+        "\nNome: " . $this->_carrieraLaureando->_nome .
+        "\nCognome: " . $this->_carrieraLaureando->_cognome .
+        "\nEmail: " . $this->_carrieraLaureando->_email .
+        "\nData: " . $this->_dataLaurea;
+        //aggiungere bonus if inf
 
         if ($this->_carrieraLaureando->get_class() == "T. Ing. Informatica") {
             $tipo_informatico = 1;
-            $anagrafica_stringa .= "\nBonus:                            " . $this->_carrieraLaureando->getBonus();
+            $anagrafica_stringa .= "\nBonus: " . $this->_carrieraLaureando->getBonus();
         }
 
         $pdf->MultiCell(0, 6, $anagrafica_stringa, 1, 'L');
-//$pdf->Cell(0, 100 ,$anagrafica_stringa, 1 ,1, '');
+        //$pdf->Cell(0, 100 ,$anagrafica_stringa, 1 ,1, '');
         $pdf->Ln(3);
-// spazio bianco
+        // spazio bianco
 
         // ------------------------------- INFORMAZIONI SUGLI ESAMI ----------------------------------------
         // 1 pag = 190 = 21cm con bordi di 1cm
@@ -121,23 +119,23 @@ class ProspettoPDFLaureando {
             }
         }
         $pdf->Ln(5);
-// ------------------------------- PARTE RIASUNTIVA  ----------------------------------------
+        // ------------------------------- PARTE RIASUNTIVA ----------------------------------------
         $pdf->SetFont($font_family, "", 9);
-        $string = "Media Pesata (M):                                                  " . $this->_carrieraLaureando->restituisciMedia() .
-            "\nCrediti che fanno media (CFU):                             " . $this->_carrieraLaureando->creditiCheFannoMedia() .
-            "\nCrediti curriculari conseguiti:                                  " . $this->_carrieraLaureando->creditiCurricolariConseguiti() .
-            "\nFormula calcolo voto di laurea:                               " . $this->_carrieraLaureando->restituisciFormula();
+        $string = "Media Pesata (M): " . $this->_carrieraLaureando->restituisciMedia() .
+        "\nCrediti che fanno media (CFU): " . $this->_carrieraLaureando->creditiCheFannoMedia() .
+        "\nCrediti curriculari conseguiti: " . $this->_carrieraLaureando->creditiCurricolariConseguiti() .
+        "\nFormula calcolo voto di laurea: " . $this->_carrieraLaureando->restituisciFormula();
         if ($tipo_informatico == 1) {
-            $string .= "\nMedia pesata esami INF:                                        " . $this->_carrieraLaureando->getMediaEsamiInformatici();
+            $string .= "\nMedia pesata esami INF: " . $this->_carrieraLaureando->getMediaEsamiInformatici();
         }
 
         $pdf->MultiCell(0, 6, $string, 1, "L");
-//$percorso_output =realpath(dirname(__FILE__)) . '\..\data\pdf_generati\\';
+        //$percorso_output =__DIR__ . '\..\data\pdf_generati\\';
         $percorso_output = "data\pdf_generati\\";
         $nome_file = $this->_matricola . "-prospetto.pdf";
         $pdf->Output('F', $percorso_output . $nome_file); // f significa scrivi su file. senza quello non funziona
 
-	}
+    }
     public function getCarriera()
     {
         return $this->_carrieraLaureando;

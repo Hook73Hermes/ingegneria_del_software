@@ -1,28 +1,27 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/EsameLaureando.php');
-require_once(realpath(dirname(__FILE__)) . '/ProspettoPDFLaureando.php');
-require_once(realpath(dirname(__FILE__)) . '/GestioneCarrieraStudente.php');
-
+require_once(__DIR__ . '/EsameLaureando.php');
+require_once(__DIR__ . '/ProspettoPDFLaureando.php');
+require_once(__DIR__ . '/GestioneCarrieraStudente.php');
 
 class CarrieraLaureando {
 
-	public $_matricola;
+    public $_matricola;
 
-	public $_nome;
+    public $_nome;
 
-	public $_cognome;
+    public $_cognome;
 
-	public $_cdl;
+    public $_cdl;
 
-	public $_email;
+    public $_email;
 
-	public $_esami;
+    public $_esami;
 
-	private $_media;
+    private $_media;
 
-	private $_formulaVotoLaurea;
+    private $_formulaVotoLaurea;
 
-	public function __construct($matricola, $cdl_in){
+    public function __construct($matricola, $cdl_in){
         //costruisco un oggetto carrieraLaureando del laureando con matricola matricola
         $this->_matricola = $matricola;
         //chiamo gcs per prendere tutte le info del laureando
@@ -36,7 +35,7 @@ class CarrieraLaureando {
         $this->_cognome = $anagrafica["Entries"]["Entry"]["cognome"];
         $this->_email = $anagrafica["Entries"]["Entry"]["email_ate"];
         $this->_cdl = $cdl_in;
-        $this->_formulaVotoLaurea =  $configurazione_json[$this->_cdl]["formula"];
+        $this->_formulaVotoLaurea = $configurazione_json[$this->_cdl]["formula"];
         $carriera = json_decode($carriera_json, true);
         $this->_esami = array();
         for ($i = 0; $i < sizeof($carriera["Esami"]["Esame"]); $i++) {
@@ -59,7 +58,7 @@ class CarrieraLaureando {
             if ($esami[$i]->_faMedia == 1) {
 
                 $somma_voto_cfu += intval($esami[$i]->_votoEsame) * $esami[$i]->_cfu;
-//devi convertire il voto in un int prima
+                //devi convertire il voto in un int prima
                 $somma_cfu_tot += $esami[$i]->_cfu;
             }
             //console_log($somma_voto_cfu);
@@ -71,22 +70,19 @@ class CarrieraLaureando {
         return $this->_media;
     }
 
-
-
-	public function creditiCurricolariConseguiti() {
+    public function creditiCurricolariConseguiti() {
         $crediti = 0;
         for ($i = 0; sizeof($this->_esami) > $i; $i++) {
-            if ($this->_esami[$i]->_nomeEsame != "PROVA FINALE" &&  $this->_esami[$i]->_nomeEsame != "LIBERA SCELTA PER RICONOSCIMENTI") {
+            if ($this->_esami[$i]->_nomeEsame != "PROVA FINALE" && $this->_esami[$i]->_nomeEsame != "LIBERA SCELTA PER RICONOSCIMENTI") {
                 $crediti += ($this->_esami[$i]->_curricolare == 1) ? $this->_esami[$i]->_cfu : 0;
             }
         }
         return $crediti;
-	}
+    }
 
-
-	public function restituisciFormula() {
-		return $this->_formulaVotoLaurea;
-	}
+    public function restituisciFormula() {
+        return $this->_formulaVotoLaurea;
+    }
     public function creditiCheFannoMedia()
     {
         $crediti = 0;
@@ -97,25 +93,24 @@ class CarrieraLaureando {
         return $crediti;
     }
 
-
     private function inserisci_esame($nome, $voto, $cfu, $faMedia, $curricolare)
     {
 
         if (
-            $nome == "LIBERA SCELTA PER RICONOSCIMENTI" || $nome == "PROVA FINALE" || $nome ==  "TEST DI VALUTAZIONE DI INGEGNERIA"
-            || $nome == "PROVA DI LINGUA INGLESE B2" || $voto == 0
+        $nome == "LIBERA SCELTA PER RICONOSCIMENTI" || $nome == "PROVA FINALE" || $nome == "TEST DI VALUTAZIONE DI INGEGNERIA"
+        || $nome == "PROVA DI LINGUA INGLESE B2" || $voto == 0
         ) {
             $faMedia = 0;
         }
         // non metto esami con parametri malformati
         if ($nome != "TEST DI VALUTAZIONE DI INGEGNERIA" && $nome != null) {
-            if ($voto == "30 e lode" || $voto == "30 e lode " || $voto == "30  e lode") {
-// -_- ci hanno messo 2 spazi
+            if ($voto == "30 e lode" || $voto == "30 e lode " || $voto == "30 e lode") {
+                // -_- ci hanno messo 2 spazi
                 $voto = "33";
             }
 
             trim($voto);
-//toglie gli spazi bianchi
+            //toglie gli spazi bianchi
             //trim($cfu);
             $esame = new EsameLaureando();
             $esame->_nomeEsame = $nome;

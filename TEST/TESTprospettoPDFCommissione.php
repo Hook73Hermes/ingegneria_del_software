@@ -16,9 +16,9 @@ class TESTprospettoPDFCommissione{
         file_put_contents(dirname(__DIR__) . '/data/pdf_generati/prospettoCommissione.pdf',$vecchio1);
 
         if($aux == $aux1)
-            echo "prospetti non generati correttamente";
+        echo "prospetti non generati correttamente";
         else
-            echo "ProspettoPDFCommissione : TEST SUPERATI";
+        echo "ProspettoPDFCommissione : TEST SUPERATI";
     }
 }
 ?>

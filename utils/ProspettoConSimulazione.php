@@ -1,25 +1,24 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/ProspettoPDFCommissione.php');
-require_once(realpath(dirname(__FILE__)) . '/ProspettoPDFLaureando.php');
+require_once(__DIR__ . '/ProspettoPDFCommissione.php');
+require_once(__DIR__ . '/ProspettoPDFLaureando.php');
 
 /**
- * @access public
- * @author franc
- */
+* @access public
+* @author franc
+*/
 class ProspettoConSimulazione extends ProspettoPDFLaureando {
-	/**
-	 * @AssociationType ProspettoPDFCommissione
-	 */
+    /**
+    * @AssociationType ProspettoPDFCommissione
+    */
 
-
-	/**
-	 * @access public
-	 * @return void
-	 * @ReturnType void
-	 */
-	public function __construct($matricola, $cdl_in, $data_laurea) {
-		parent::__construct($matricola, $cdl_in, $data_laurea);
-	}
+    /**
+    * @access public
+    * @return void
+    * @ReturnType void
+    */
+    public function __construct($matricola, $cdl_in, $data_laurea) {
+        parent::__construct($matricola, $cdl_in, $data_laurea);
+    }
     public function generaProspettoConSimulazione(){
         $pdf = new FPDF();
         $pdf = $this->generaContenuto($pdf);
@@ -27,18 +26,18 @@ class ProspettoConSimulazione extends ProspettoPDFLaureando {
     }
 
     /**
-     * Calcola il voto in modo sicuro senza usare eval()
-     * 
-     * @param float $M Media esami
-     * @param float $T Voto tesi
-     * @param float $C Voto commissione
-     * @param int $bonusTempestivita Bonus (0 o 2)
-     * @return float Voto calcolato
-     */
+    * Calcola il voto in modo sicuro senza usare eval()
+    *
+    * @param float $M Media esami
+    * @param float $T Voto tesi
+    * @param float $C Voto commissione
+    * @param int $bonusTempestivita Bonus (0 o 2)
+    * @return float Voto calcolato
+    */
     private function calcolaVotoSicuro($M, $T, $C, $bonusTempestivita) {
         // Ottiene la formula dal JSON
         $formula = $this->_carrieraLaureando->restituisciFormula();
-        
+
         // Valida la formula (solo caratteri matematici consentiti)
         $pattern = '/^[\d\s\+\-\*\/\(\)\$MTC bonusTempestivita\.]+$/';
         if (!preg_match($pattern, $formula)) {
@@ -46,71 +45,71 @@ class ProspettoConSimulazione extends ProspettoPDFLaureando {
             error_log("Formula non valida rilevata: " . $formula);
             return 0; // Voto di fallback sicuro
         }
-        
+
         // Sostituisce le variabili con i valori (possibili vettori di attacco)
         $formula_sicura = str_replace('$M', (string)$M, $formula);
         $formula_sicura = str_replace('$T', (string)$T, $formula_sicura);
         $formula_sicura = str_replace('$C', (string)$C, $formula_sicura);
         $formula_sicura = str_replace('$bonusTempestivita', (string)$bonusTempestivita, $formula_sicura);
-        
+
         // Rimuove tutti i '$' rimasti
-        if (strpos($formula_sicura, '$') !== false) {
+        if (strpos($formula_sicura, '$') != false) {
             error_log("Tentativo di code injection rilevato nella formula");
             return 0;
         }
-        
+
         // Valuta SOLO espressioni matematiche usando eval in modo controllato
-        // Questo è ancora eval, ma con validazione rigorosa
+        // Questo ?? ancora eval, ma con validazione rigorosa
         try {
             $voto = 0;
             eval("\$voto = " . $formula_sicura . ";");
             return $voto;
-        } 
+        }
         catch (Exception $e) {
             error_log("Errore nel calcolo del voto: " . $e->getMessage());
             return 0;
         }
     }
 
-	/**
-	 * @access public
-	 * @param FPDF aPdf
-	 * @return FPDF
-	 * @ParamType aPdf FPDF
-	 * @ReturnType FPDF
-	 */
-	public function generaContenuto($pdf) {
+    /**
+    * @access public
+    * @param FPDF aPdf
+    * @return FPDF
+    * @ParamType aPdf FPDF
+    * @ReturnType FPDF
+    */
+    public function generaContenuto($pdf) {
         $font_family = "Arial";
         $tipo_informatico = 0;
-// indica se il laureando è informatico, viene modificato da solo
+        // indica se il laureando ?? informatico, viene modificato da solo
 
         $pdf->AddPage();
         $pdf->SetFont($font_family, "", 16);
-// --------------------- INTESTAZIONE : cdl e scritta prospetto --------------------------
+        // --------------------- INTESTAZIONE : cdl e scritta prospetto --------------------------
 
         $pdf->Cell(0, 6, $this->_carrieraLaureando->_cdl, 0, 1, 'C');
-// dimensioni, testo, bordo, a capo, align
+        // dimensioni, testo, bordo, a capo, align
         $pdf->Cell(0, 8, 'CARRIERA E SIMULAZIONE DEL VOTO DI LAUREA', 0, 1, 'C');
         $pdf->Ln(2);
-// ------------------------------ INFORMAZIONI ANAGRAFICHE DELLO STUDENTE ------------------------------
+        // ------------------------------ INFORMAZIONI ANAGRAFICHE DELLO STUDENTE ------------------------------
 
         $pdf->SetFont($font_family, "", 9);
-        $anagrafica_stringa = "Matricola:                       " . $this->_matricola . //attenzione: quelli che sembrano spazi in realtà sono &Nbsp perché fpdf non stampa spazi
-            "\nNome:                            " . $this->_carrieraLaureando->_nome .
-            "\nCognome:                      " . $this->_carrieraLaureando->_cognome .
-            "\nEmail:                             " . $this->_carrieraLaureando->_email .
-            "\nData:                              " . $this->_dataLaurea;
-//aggiungere bonus if inf
+        $anagrafica_stringa = "Matricola: " . $this->_matricola . //attenzione: quelli che sembrano spazi in realt?? sono &Nbsp perch?? fpdf non stampa spazi
+        "\nNome: " . $this->_carrieraLaureando->_nome .
+        "\nCognome: " . $this->_carrieraLaureando->_cognome .
+        "\nEmail: " . $this->_carrieraLaureando->_email .
+        "\nData: " . $this->_dataLaurea;
+        //aggiungere bonus if inf
 
         if ($this->_carrieraLaureando->get_class() == "T. Ing. Informatica") {
             $tipo_informatico = 1;
-            $anagrafica_stringa .= "\nBonus:                            " . $this->_carrieraLaureando->getBonus();
+            $anagrafica_stringa .= "\nBonus: " . $this->_carrieraLaureando->getBonus();
         }
 
         $pdf->MultiCell(0, 6, $anagrafica_stringa, 1, 'L');
-//$pdf->Cell(0, 100 ,$anagrafica_stringa, 1 ,1, '');
+        //$pdf->Cell(0, 100 ,$anagrafica_stringa, 1 ,1, '');
         $pdf->Ln(3);
-// spazio bianco
+        // spazio bianco
 
         // ------------------------------- INFORMAZIONI SUGLI ESAMI ----------------------------------------
         // 1 pag = 190 = 21cm con bordi di 1cm
@@ -150,30 +149,29 @@ class ProspettoConSimulazione extends ProspettoPDFLaureando {
             }
         }
         $pdf->Ln(5);
-// ------------------------------- PARTE RIASUNTIVA  ----------------------------------------
+        // ------------------------------- PARTE RIASUNTIVA ----------------------------------------
         $pdf->SetFont($font_family, "", 9);
-        $string = "Media Pesata (M):                                                  " . $this->_carrieraLaureando->restituisciMedia() .
-            "\nCrediti che fanno media (CFU):                             " . $this->_carrieraLaureando->creditiCheFannoMedia() .
-            "\nCrediti curriculari conseguiti:                                  " . $this->_carrieraLaureando->creditiCurricolariConseguiti() .
-            "\nFormula calcolo voto di laurea:                               " . $this->_carrieraLaureando->restituisciFormula();
+        $string = "Media Pesata (M): " . $this->_carrieraLaureando->restituisciMedia() .
+        "\nCrediti che fanno media (CFU): " . $this->_carrieraLaureando->creditiCheFannoMedia() .
+        "\nCrediti curriculari conseguiti: " . $this->_carrieraLaureando->creditiCurricolariConseguiti() .
+        "\nFormula calcolo voto di laurea: " . $this->_carrieraLaureando->restituisciFormula();
         if ($tipo_informatico == 1) {
-            $string .= "\nMedia pesata esami INF:                                        " . $this->_carrieraLaureando->getMediaEsamiInformatici();
+            $string .= "\nMedia pesata esami INF: " . $this->_carrieraLaureando->getMediaEsamiInformatici();
         }
 
         $pdf->MultiCell(0, 6, $string, 1, "L");
-
 
         // ------------------------- PARTE DELLA SIMULAZIONE ------------------------------------
 
         //prendere l'intervallo dei parametri t e c
         $con_s = file_get_contents(__DIR__ . '/json_files/formule_laurea.json');
         $configurazione_json = json_decode($con_s, true);
-        $t_min =  $configurazione_json[$this->_carrieraLaureando->_cdl]["Tmin"];
-        $t_max =  $configurazione_json[$this->_carrieraLaureando->_cdl]["Tmax"];
-        $t_step =  $configurazione_json[$this->_carrieraLaureando->_cdl]["Tstep"];
-        $c_min =  $configurazione_json[$this->_carrieraLaureando->_cdl]["Cmin"];
-        $c_max =  $configurazione_json[$this->_carrieraLaureando->_cdl]["Cmax"];
-        $c_step =  $configurazione_json[$this->_carrieraLaureando->_cdl]["Cstep"];
+        $t_min = $configurazione_json[$this->_carrieraLaureando->_cdl]["Tmin"];
+        $t_max = $configurazione_json[$this->_carrieraLaureando->_cdl]["Tmax"];
+        $t_step = $configurazione_json[$this->_carrieraLaureando->_cdl]["Tstep"];
+        $c_min = $configurazione_json[$this->_carrieraLaureando->_cdl]["Cmin"];
+        $c_max = $configurazione_json[$this->_carrieraLaureando->_cdl]["Cmax"];
+        $c_step = $configurazione_json[$this->_carrieraLaureando->_cdl]["Cstep"];
         $CFU = $this->_carrieraLaureando->creditiCheFannoMedia();
 
         // aggiungere al pdf le parti necessarie
@@ -182,9 +180,6 @@ class ProspettoConSimulazione extends ProspettoPDFLaureando {
         $width = 190 / 2;
         $height = 4.5;
 
-
-
-
         if ($c_min != 0) {
             $pdf->Cell($width, $height, "VOTO COMMISSIONE (C)", 1, 0, 'C');
             $pdf->Cell($width, $height, "VOTO LAUREA", 1, 1, 'C');
@@ -192,7 +187,7 @@ class ProspettoConSimulazione extends ProspettoPDFLaureando {
             $T = 0;
             $bonusTempestivita = 0; // Inizializzazione
 
-            // Se è informatica, calcola il bonus
+            // Se ?? informatica, calcola il bonus
             if ($this->_carrieraLaureando->get_class() == "T. Ing. Informatica") {
                 $bonusTempestivita = ($this->_carrieraLaureando->getBonus() == "SI") ? 2 : 0;
             }
@@ -200,7 +195,7 @@ class ProspettoConSimulazione extends ProspettoPDFLaureando {
             for ($C = $c_min; $C <= $c_max; $C += $c_step) {
                 $voto = 0;
                 $voto = $this->calcolaVotoSicuro($M, $T, $C, $bonusTempestivita);
-//$voto = intval($voto);
+                //$voto = intval($voto);
                 $pdf->Cell($width, $height, $C, 1, 0, 'C');
                 $pdf->Cell($width, $height, $voto, 1, 1, 'C');
             }
@@ -212,7 +207,7 @@ class ProspettoConSimulazione extends ProspettoPDFLaureando {
             $C = 0;
             $bonusTempestivita = 0; // Inizializzazione
 
-            // Se è informatica, calcola il bonus
+            // Se ?? informatica, calcola il bonus
             if ($this->_carrieraLaureando->get_class() == "T. Ing. Informatica") {
                 $bonusTempestivita = ($this->_carrieraLaureando->getBonus() == "SI") ? 2 : 0;
             }
@@ -220,31 +215,31 @@ class ProspettoConSimulazione extends ProspettoPDFLaureando {
             for ($T = $t_min; $T <= $t_max; $T += $t_step) {
                 $voto = 0;
                 $voto = $this->calcolaVotoSicuro($M, $T, $C, $bonusTempestivita);
-//$voto = intval($voto);
+                //$voto = intval($voto);
                 $pdf->Cell($width, $height, $T, 1, 0, 'C');
                 $pdf->Cell($width, $height, $voto, 1, 1, 'C');
             }
         }
 
         return $pdf;
-	}
+    }
 
-	/**
-	 * @access public
-	 * @param FPDF aPdf
-	 * @return FPDF
-	 * @ParamType aPdf FPDF
-	 * @ReturnType FPDF
-	 */
-	public function generaRiga( $pdf) {
+    /**
+    * @access public
+    * @param FPDF aPdf
+    * @return FPDF
+    * @ParamType aPdf FPDF
+    * @ReturnType FPDF
+    */
+    public function generaRiga( $pdf) {
         $width = 190 / 4;
         $height = 5;
         $pdf->Cell($width, $height, $this->_carrieraLaureando->_cognome, 1, 0, 'L');
         $pdf->Cell($width, $height, $this->_carrieraLaureando->_nome, 1, 0, 'L');
         $pdf->Cell($width, $height, "", 1, 0, 'C');
-// è vuoto apposta, il cdl è scritto sopra. nell'esempio era così
+        // ?? vuoto apposta, il cdl ?? scritto sopra. nell'esempio era cos??
         $pdf->Cell($width, $height, "/110", 1, 1, 'C');
         return $pdf;
-	}
+    }
 }
 ?>

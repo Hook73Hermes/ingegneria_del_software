@@ -15,9 +15,9 @@ class TESTprospettoPDFLaureando{
         file_put_contents(dirname(__DIR__) . '/data/pdf_generati/123456-prospetto.pdf',$vecchio1);
 
         if($aux == $aux1)
-            echo "prospetti non generati correttamente";
+        echo "prospetti non generati correttamente";
         else
-            echo "ProspettoPDFLaureando : TEST SUPERATI";
+        echo "ProspettoPDFLaureando : TEST SUPERATI";
     }
 }
 ?>
