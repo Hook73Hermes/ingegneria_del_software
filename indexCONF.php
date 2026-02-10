@@ -38,17 +38,43 @@
 <?php
 require_once('C:\Users\franc\Local Sites\genera-prospetti-laurea\app\public\utils\ModificaParametriConfigurazione.php');
 
-// Verifica che la richiesta sia POST
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     
+    // Verifica che la variabile sia settata e non sia una stringa vuota
+    if (!isset($_POST["cdl"]) || empty($_POST["cdl"])) {
+        die("Errore: Corso di Laurea non fornito");
+    }
+
+    // Lista dei Cdl validi
+    $cdl_whitelist = [
+        'T. Ing. Informatica',
+        'M. Cybersecurity',
+        'M. Ing. Elettronica',
+        'T. Ing. Biomedica',
+        'M. Ing. Biomedica, Bionics Engineering',
+        'T. Ing. Elettronica',
+        'T. Ing. delle Telecomunicazioni',
+        'M. Ing. delle Telecomunicazioni',
+        'M. Computer Engineering, Artificial Intelligence and Data Enginering',
+        'M. Ing. Robotica e della Automazione'
+    ];
+
+    // Verifica che il Cdl sia valido (approccio whitelist)
+    if (!in_array($_POST["cdl"], $cdl_whitelist, true)) {
+        die("Errore: Corso di Laurea non valido. Seleziona un corso dalla lista.");
+    }
+
+    // variabile locale validata
+    $cdl = $_POST["cdl"];
+    
+    // Validazione formula es esami
     if(isset($_POST["formula"]) && isset($_POST["esami_informatici"])){
         $array_inf = array_map("intval", explode(",", $_POST["esami_informatici"]));
-        $val = new ModificaParametriConfigurazione($_POST["cdl"], $array_inf);
+        $val = new ModificaParametriConfigurazione($cdl, $array_inf);
         $val->modificaFormula($_POST["formula"]);
         $val->modificaEsamiInformatici();
         echo "parametri configurati";
     }
 }
-
 ?>
 </form>

@@ -74,7 +74,7 @@
         <option name = "cdl">T. Ing. delle Telecomunicazioni</option>
         <option name = "cdl">M. Ing. delle Telecomunicazioni</option>
         <option name = "cdl">M. Computer Engineering, Artificial Intelligence and Data Enginering</option>
-        <option name = "cdl">M. Ing. Robotica e della Automazione"</option>
+        <option name = "cdl">M. Ing. Robotica e della Automazione</option>
     </select>
 
     <br>
