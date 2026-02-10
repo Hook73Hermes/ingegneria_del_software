@@ -5,7 +5,7 @@
  * @access public
  * @author franc
  */
-class EsameLaureando2 {
+class EsameLaureando {
 	/**
 	 * @AttributeType string
 	 */

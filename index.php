@@ -1,28 +1,3 @@
-<?php
-/**
- * Template Name : index
- */
-?>
-<!--
-<!DOCTYPE html>
-<head>
-    <title>genera prospetti di laurea</title>
-    <style type = "text/css">
-        body{
-            text-align: center;
-            background-color: whitesmoke;
-            font-size: larger;
-        }
-        button{
-            color: white;
-            background-color: red;
-            padding: 0.5em;
-            margin: 0.5em;
-            border-radius: 5px;
-        }
-
-    </style>
-</head> -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,10 +36,9 @@
 <form action = "generaProspetti.php" method = "post">
 
     <h1> Laureandosi 2 - Gestione Lauree </h1>
-    <!-- campi  -->
 
     <p>Cdl:</p>
-    <select name = "cdl"><!-- tutti quelli dei test  -->
+    <select name = "cdl">
         <option name = "cdl">T. Ing. Informatica</option>
         <option name = "cdl">M. Cybersecurity</option>
         <option name = "cdl">M. Ing. Elettronica</option>
@@ -91,7 +65,6 @@
     <br>
     <br>
 
-    <!-- bottoni  -->
     <button type = "submit">
         Crea Prospetti
     </button>
@@ -110,10 +83,7 @@
 
 </form>
 
-<!--</form
-action = "index.php" method = "get">-->
 <br>
-<!-- <a href = "data/pdf_generati/prospettoCommissione.pdf"> Apri prospetti</a>   -->
 <?php
 require_once(__DIR__ . '/utils/AccessoProspetti.php');
 $accesso = new AccessoProspetti;
@@ -121,7 +91,6 @@ $aux = $accesso->fornisciAccesso();
 echo '<a href="' . htmlspecialchars($aux, ENT_QUOTES, 'UTF-8') . '" download> Apri Prospetti</a>';
 ?>
 <br>
-<!--</form> -->
 <br>
 <br>
 <a href="indexTEST.php">Vai alla pagina 2</a>

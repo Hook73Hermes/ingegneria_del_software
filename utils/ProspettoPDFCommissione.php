@@ -1,11 +1,11 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/ProspettoConSimulazione2.php');
+require_once(realpath(dirname(__FILE__)) . '/ProspettoConSimulazione.php');
 
 /**
  * @access public
  * @author franc
  */
-class ProspettoPDFCommissione2 {
+class ProspettoPDFCommissione {
 	/**
 	 * @AttributeType int[]
 	 */
@@ -19,7 +19,7 @@ class ProspettoPDFCommissione2 {
 	 */
 	private $_cdl;
 	/**
-	 * @AssociationType ProspettoConSimulazione2
+	 * @AssociationType ProspettoConSimulazione
 	 * @AssociationKind Composition
 	 */
 
@@ -64,14 +64,14 @@ class ProspettoPDFCommissione2 {
         $pdf->Cell($width, $height, "VOTO LAUREA", 1, 1, 'C');
         $pdf->SetFont($font_family, "", 12);
         for ($i = 0; $i < sizeof($this->_matricole); $i++) {
-            $pag_con_simulazione = new ProspettoConSimulazione2($this->_matricole[$i], $this->_cdl, $this->_dataLaurea);
+            $pag_con_simulazione = new ProspettoConSimulazione($this->_matricole[$i], $this->_cdl, $this->_dataLaurea);
             $pdf = $pag_con_simulazione->generaRiga($pdf);
         }
 
         // --------  PAGINE CON LA CARRIERA ---------------------
         // aggiungo la pagina di ogni laureando
         for ($i = 0; $i < sizeof($this->_matricole); $i++) {
-            $pag_con_simulazione = new ProspettoConSimulazione2($this->_matricole[$i], $this->_cdl, $this->_dataLaurea);
+            $pag_con_simulazione = new ProspettoConSimulazione($this->_matricole[$i], $this->_cdl, $this->_dataLaurea);
             $pdf = $pag_con_simulazione->generaContenuto($pdf);
         }
 
@@ -83,7 +83,7 @@ class ProspettoPDFCommissione2 {
     public function generaProspettiLaureandi()
     {
         for ($i = 0; $i < sizeof($this->_matricole); $i++) {
-            $prospetto = new ProspettoPdfLaureando2($this->_matricole[$i], $this->_cdl, $this->_dataLaurea);
+            $prospetto = new ProspettoPDFLaureando($this->_matricole[$i], $this->_cdl, $this->_dataLaurea);
             $prospetto->generaProspetto();
         }
     }

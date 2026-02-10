@@ -6,7 +6,7 @@ class TESTconfigurazione{
         $val1 = json_decode($val,true);
         $x = file_get_contents(dirname(__DIR__) . '/utils/json_files/esami_informatici.json');
         $y = json_decode($x,true);
-        $var = new ModificaParametriCofigurazione("T. Ing. Informatica",array("ELETTROTECNICA","CRITTOGRAFIA"));
+        $var = new ModificaParametriConfigurazione("T. Ing. Informatica",array("ELETTROTECNICA","CRITTOGRAFIA"));
         $var->modificaFormula("4*3");
         $var->modificaEsamiInformatici();
         $aux = file_get_contents(dirname(__DIR__) . '/utils/json_files/formule_laurea.json');

@@ -1,8 +1,8 @@
 <?php
-require_once(dirname(__DIR__) . '/utils/EsameLaureando2.php');
+require_once(dirname(__DIR__) . '/utils/EsameLaureando.php');
 class TESTesameLaureando{
     public function test(){
-        $ausiliaria = new EsameLaureando2();
+        $ausiliaria = new EsameLaureando();
         $ausiliaria->_nomeEsame = "STATISTICA";
         $ausiliaria->_votoEsame = 28;
         $aux = $ausiliaria->_nomeEsame;
@@ -11,7 +11,7 @@ class TESTesameLaureando{
         $aux1 = $ausiliaria->_votoEsame;
         if($aux1 != 28)
             echo "errore voto esame su esameLaureando2";
-        echo "EsameLaureando2 : TEST SUPERATI";
+        echo "EsameLaureando : TEST SUPERATI";
     }
 }
 ?>

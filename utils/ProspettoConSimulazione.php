@@ -1,14 +1,14 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/ProspettoPDFCommissione2.php');
-require_once(realpath(dirname(__FILE__)) . '/ProspettoPDFLaureando2.php');
+require_once(realpath(dirname(__FILE__)) . '/ProspettoPDFCommissione.php');
+require_once(realpath(dirname(__FILE__)) . '/ProspettoPDFLaureando.php');
 
 /**
  * @access public
  * @author franc
  */
-class ProspettoConSimulazione2 extends ProspettoPDFLaureando2 {
+class ProspettoConSimulazione extends ProspettoPDFLaureando {
 	/**
-	 * @AssociationType ProspettoPDFCommissione2
+	 * @AssociationType ProspettoPDFCommissione
 	 */
 
 

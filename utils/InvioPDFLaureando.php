@@ -1,7 +1,7 @@
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-require_once(realpath(dirname(__FILE__)) . '/ProspettoPDFLaureando2.php');
+require_once(realpath(dirname(__FILE__)) . '/ProspettoPDFLaureando.php');
 require_once(dirname(__DIR__) . '/PHPMailer/src/Exception.php');
 require_once(dirname(__DIR__) . '/PHPMailer/src/PHPMailer.php');
 require_once(dirname(__DIR__) . '/PHPMailer/src/SMTP.php');
@@ -10,13 +10,13 @@ require_once(dirname(__DIR__) . '/PHPMailer/src/SMTP.php');
  * @author franc
  */
 
-class InvioPDFLaureando2 {
+class InvioPDFLaureando {
     /**
      * @AttributeType int[]
      */
     private $_matricole;
     /**
-     * @AssociationType ProspettoPDFLaureando2
+     * @AssociationType ProspettoPDFLaureando
      */
     private $_cdl;
     private $_dataLaurea;
@@ -38,7 +38,7 @@ class InvioPDFLaureando2 {
     }
     public function invioProspetti(){
         for ($j = 0; $j < sizeof($this->_matricole); $j++) {
-            $prospetto = new ProspettoPdfLaureando2($this->_matricole[$j], $this->_cdl, $this->_dataLaurea);
+            $prospetto = new ProspettoPDFLaureando($this->_matricole[$j], $this->_cdl, $this->_dataLaurea);
             $this->inviaProspetto( $prospetto->_carrieraLaureando);
         }
     }

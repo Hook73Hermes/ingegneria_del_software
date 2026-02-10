@@ -1,6 +1,6 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/CarrieraLaureando2.php');
-class CarrieraLaureandoInformatica2 extends CarrieraLaureando2{
+require_once(realpath(dirname(__FILE__)) . '/CarrieraLaureando.php');
+class CarrieraLaureandoInformatica extends CarrieraLaureando{
     private $dataImmatricolazione;
     private $dataLaurea;
     private $mediaEsamiInformatici;

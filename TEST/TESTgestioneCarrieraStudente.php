@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__DIR__) . '/utils/GestioneCarrieraStudente2.php');
+require_once(dirname(__DIR__) . '/utils/GestioneCarrieraStudente.php');
 class TESTgestioneCarrieraStudente{
     public function test(){
         $val = new GestioneCarrieraStudente();
@@ -7,8 +7,8 @@ class TESTgestioneCarrieraStudente{
         $aux1 = json_decode($aux,true);
         $aux2 = $aux1["Entries"]["Entry"]["nome"];
         if($aux2 == "GIUSEPPE")
-            echo "GestioneCarrieraStudente2 : TEST SUPERATI";
+            echo "GestioneCarrieraStudente : TEST SUPERATI";
         else
-            echo "GestioneCarrieraStudente2 non preleva correttamente i dati";
+            echo "GestioneCarrieraStudente non preleva correttamente i dati";
     }
 }

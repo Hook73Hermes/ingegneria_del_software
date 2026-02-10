@@ -1,5 +1,5 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/utils/ProspettoPdfCommissione2.php');
+require_once(realpath(dirname(__FILE__)) . '/utils/ProspettoPDFCommissione.php');
 
 // Verifica che il metodo utilizzato sia POST
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -80,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $cdl = $_POST["cdl"];
 
         // Generazione dei prospetti di laurea
-        $prospetto = new ProspettoPdfCommissione2($matricole_array, $data_laurea, $cdl);
+        $prospetto = new ProspettoPDFCommissione($matricole_array, $data_laurea, $cdl);
         $prospetto->generaProspettiCommissione();
         $prospetto->generaProspettiLaureandi();
         $prospetto->popolaJSON(__DIR__ . '/data/ausiliario.json');

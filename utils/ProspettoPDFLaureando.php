@@ -1,13 +1,13 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/CarrieraLaureandoInformatica2.php');
-require_once(realpath(dirname(__FILE__)) . '/CarrieraLaureando2.php');
+require_once(realpath(dirname(__FILE__)) . '/CarrieraLaureandoInformatica.php');
+require_once(realpath(dirname(__FILE__)) . '/CarrieraLaureando.php');
 require_once(realpath(dirname(__FILE__)) . '/fpdf.php');
 /**
  * @access public
  * @author franc
  */
 
-class ProspettoPDFLaureando2 {
+class ProspettoPDFLaureando {
 	/**
 	 * @AttributeType CarrieraLaureando
 	 */
@@ -33,9 +33,9 @@ class ProspettoPDFLaureando2 {
 	 */
 	public function __construct($aMatricola, $aCdl, $aDataLaurea) {
         if ($aCdl != "INGEGNERIA INFORMATICA (IFO-L)" && $aCdl != "T. Ing. Informatica") {
-            $this->_carrieraLaureando = new CarrieraLaureando2($aMatricola, $aCdl);
+            $this->_carrieraLaureando = new CarrieraLaureando($aMatricola, $aCdl);
         } else {
-            $this->_carrieraLaureando = new CarrieraLaureandoInformatica2($aMatricola, $aCdl, $aDataLaurea);
+            $this->_carrieraLaureando = new CarrieraLaureandoInformatica($aMatricola, $aCdl, $aDataLaurea);
         }
         $this->_matricola = $aMatricola;
         $this->_dataLaurea = $aDataLaurea;

@@ -1,5 +1,5 @@
 <?php
-class ModificaParametriCofigurazione{
+class ModificaParametriConfigurazione{
     private $corso_di_laurea;
     private $esami_inf = array();
     public function __construct($cdl_in, $informatici){

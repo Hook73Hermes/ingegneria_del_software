@@ -1,9 +1,9 @@
 <?php
-require_once(__DIR__ . '/utils/InvioPDFLaureando2.php');
+require_once(__DIR__ . '/utils/InvioPDFLaureando.php');
 
 // Verifica che la richiesta sia POST
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $invio = new InvioPDFLaureando2();
+    $invio = new InvioPDFLaureando();
     $invio->invioProspetti();
     echo "i prospetti sono stati inviati";
 } 

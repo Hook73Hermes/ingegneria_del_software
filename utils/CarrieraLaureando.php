@@ -1,10 +1,10 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/EsameLaureando2.php');
-require_once(realpath(dirname(__FILE__)) . '/ProspettoPDFLaureando2.php');
-require_once(realpath(dirname(__FILE__)) . '/GestioneCarrieraStudente2.php');
+require_once(realpath(dirname(__FILE__)) . '/EsameLaureando.php');
+require_once(realpath(dirname(__FILE__)) . '/ProspettoPDFLaureando.php');
+require_once(realpath(dirname(__FILE__)) . '/GestioneCarrieraStudente.php');
 
 
-class CarrieraLaureando2 {
+class CarrieraLaureando {
 
 	public $_matricola;
 
@@ -117,7 +117,7 @@ class CarrieraLaureando2 {
             trim($voto);
 //toglie gli spazi bianchi
             //trim($cfu);
-            $esame = new EsameLaureando2();
+            $esame = new EsameLaureando();
             $esame->_nomeEsame = $nome;
             $esame->_votoEsame = $voto;
             $esame->_cfu = $cfu;
