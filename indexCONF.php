@@ -122,13 +122,18 @@
             // Variabile locale verificata
             $cdl = $_POST["cdl"];
 
-            // Modifica effettiva dei parametri
+            // Modifica effettiva dei parametri (cambiati se e solo se non vuoti)
             if (isset($_POST["formula"]) && isset($_POST["esami_informatici"])) {
                 $array_inf = array_map("intval", explode(",", $_POST["esami_informatici"]));
                 $val = new ModificaParametriConfigurazione($cdl, $array_inf);
-                $val->modificaFormula($_POST["formula"]);
-                $val->modificaEsamiInformatici();
-                echo "parametri configurati";
+                if (!empty($_POST["formula"])) {
+                    $val->modificaFormula($_POST["formula"]);
+                }
+                if (!empty($_POST["esami_informatici"])) {
+                    $val->modificaEsamiInformatici();
+                }
+                echo '<div id="messaggio-successo" style="color: green; font-weight: bold; margin-top: 15px;">Parametri configurati con successo!</div>';
+                echo '<script> setTimeout(function() {document.getElementById("messaggio-successo").style.display = "none";}, 3000); </script>';
             }
         }
         ?>

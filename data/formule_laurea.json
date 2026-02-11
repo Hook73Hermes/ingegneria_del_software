@@ -30,7 +30,7 @@
         "Cstep": 1
     },
     "T. Ing. delle Telecomunicazioni": {
-        "formula": "$M * 11 \/ 3+ $C",
+        "formula": "$M * 11 \/ 3 + $C",
         "cfu_richiesti": 177,
         "Tmin": 0,
         "Tmax": 0,

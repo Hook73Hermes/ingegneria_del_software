@@ -1,0 +1,2 @@
+1- Rendere i messaggi del tipo "parametri configurati" effimeri
+2- Non modificare gli esami informatici se la casella è completamente vuota
