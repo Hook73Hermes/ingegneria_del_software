@@ -124,7 +124,7 @@
 
             // Modifica effettiva dei parametri (cambiati se e solo se non vuoti)
             if (isset($_POST["formula"]) && isset($_POST["esami_informatici"])) {
-                $array_inf = array_map("intval", explode(",", $_POST["esami_informatici"]));
+                $array_inf = array_filter(array_map("trim", explode(",", $_POST["esami_informatici"])));
                 $val = new ModificaParametriConfigurazione($cdl, $array_inf);
                 if (!empty($_POST["formula"])) {
                     $val->modificaFormula($_POST["formula"]);
