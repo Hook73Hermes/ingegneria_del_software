@@ -47,6 +47,12 @@
         <a href="indexCONF.php">Configuratore</a>
     </div>
 
+    /*
+    Seguono i test relativi a tutte le funzionalità della cartella utils/
+    In ogni test viene creata la classe Tester e chiamato il rispettivo metodo Tester.test()
+    I risultati dei test appaiono a schermo
+    */
+
     <div class="test-section">
         <?php
         require_once(__DIR__ . '/TEST/TESTcarrieraLaureando.php');
@@ -109,10 +115,6 @@
         $test8 = new TESTprospettoPDFLaureando();
         $test8->test();
         ?>
-    </div>
-
-    <div class="nav">
-        <a href="index.php">Torna alla Home</a>
     </div>
 </body>
 </html>

@@ -2,38 +2,78 @@
 <html>
 <head>
     <title>Genera Prospetti di Laurea</title>
-    <style type="text/css">
+    <style>
         body {
-            text-align: center;
-            background-color: whitesmoke;
-            font-size: larger;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 10px;
         }
         form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        button {
-            color: white;
-            background-color: red;
-            padding: 0.5em;
-            margin: 0.5em;
-            border-radius: 5px;
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         select, textarea, input {
-            margin: 0.5em;
+            width: 100%;
+            margin: 10px 0;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .nav {
+            margin: 20px 0;
+        }
+        .nav a {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .nav a:hover {
+            background: #0056b3;
+        }
+        #message-container {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
         }
     </style>
 </head>
 <body>
-    <h1>genera prospetti di laurea</h1>
+    <h1>Genera Prospetti di Laurea</h1>
+
+    <div class="nav">
+        <a href="indexTEST.php">Test Suite</a>
+        <a href="indexCONF.php">Configuratore</a>
+    </div>
 
     <form action="generaProspetti.php" method="post">
-        <h1>Laureandosi 2 - Gestione Lauree</h1>
-
         <p>Cdl:</p>
         <select name="cdl">
             <option name="cdl">T. Ing. Informatica</option>
@@ -68,18 +108,16 @@
     }
     ?>
 
-    <a href="indexTEST.php">Vai alla pagina 2</a>
-
-    <a href="indexCONF.php">Vai alla pagina del configuratore</a>
-
-    <div id="message-container" style="margin: 20px; padding: 15px; border-radius: 5px; display: none;"></div>
+    <div id="message-container"></div>
 
     <script>
+    // Gestisce gli eventi legati al form
     document.addEventListener('DOMContentLoaded', function() {
         const form = document.querySelector('form[action="generaProspetti.php"]');
         const messageContainer = document.getElementById('message-container');
 
         if (form) {
+            // Quando il form viene inviato la pagina non viene refreshata (comportamento default)
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
 
@@ -88,12 +126,14 @@
 
                 const formData = new FormData(form);
 
+                // Richiede le informazioni alla routine per generare prospetti
                 fetch('generaProspetti.php', {
                     method: 'POST',
                     body: formData
                 })
                 .then(response => response.json())
                 .then(data => {
+                    // In caso di successo il form viene resettato dopo 3 secondi
                     if (data.success) {
                         showMessage('Prospetti generati con successo!', 'success');
                         setTimeout(() => {
@@ -113,6 +153,7 @@
         }
     });
 
+    // Mostra a video il messaggio 
     function showMessage(message, type) {
         const container = document.getElementById('message-container');
         container.textContent = message;
@@ -133,11 +174,13 @@
         }
     }
 
+    // Nasconde il messaggio
     function hideMessage() {
         const container = document.getElementById('message-container');
         container.style.display = 'none';
     }
 
+    // DIsabilita l'utilizzo del form durante il submit
     function disableForm(disabled) {
         const form = document.querySelector('form[action="generaProspetti.php"]');
         const inputs = form.querySelectorAll('input, select, textarea, button');
