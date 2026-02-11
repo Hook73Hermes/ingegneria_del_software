@@ -131,7 +131,7 @@ class ProspettoPDFLaureando {
 
         $pdf->MultiCell(0, 6, $string, 1, "L");
         //$percorso_output =__DIR__ . '\..\data\pdf_generati\\';
-        $percorso_output = "data\pdf_generati\\";
+        $percorso_output = dirname(__DIR__) . '/data/pdf_generati/';
         $nome_file = $this->_matricola . "-prospetto.pdf";
         $pdf->Output('F', $percorso_output . $nome_file); // f significa scrivi su file. senza quello non funziona
 
