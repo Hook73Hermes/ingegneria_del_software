@@ -28,7 +28,7 @@ class CarrieraLaureando {
         $gcs = new GestioneCarrieraStudente();
         $anagrafica_json = $gcs->restituisciAnagraficaStudente($matricola);
         $carriera_json = $gcs->restituisciCarrieraStudente($matricola);
-        $con_s = file_get_contents(__DIR__ . '/json_files/formule_laurea.json');
+        $con_s = file_get_contents(dirname(__DIR__) . '/data/formule_laurea.json');
         $configurazione_json = json_decode($con_s, true);
         $anagrafica = json_decode($anagrafica_json, true);
         $this->_nome = $anagrafica["Entries"]["Entry"]["nome"];

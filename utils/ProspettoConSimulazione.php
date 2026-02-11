@@ -165,7 +165,7 @@ class ProspettoConSimulazione extends ProspettoPDFLaureando {
         // ------------------------- PARTE DELLA SIMULAZIONE ------------------------------------
 
         //prendere l'intervallo dei parametri t e c
-        $con_s = file_get_contents(__DIR__ . '/json_files/formule_laurea.json');
+        $con_s = file_get_contents(dirname(__DIR__) . '/data/formule_laurea.json');
         $configurazione_json = json_decode($con_s, true);
         $t_min = $configurazione_json[$this->_carrieraLaureando->_cdl]["Tmin"];
         $t_max = $configurazione_json[$this->_carrieraLaureando->_cdl]["Tmax"];
