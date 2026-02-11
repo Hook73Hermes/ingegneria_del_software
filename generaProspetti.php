@@ -74,14 +74,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             header("Content-Type: application/json");
             echo json_encode([
             "success" => false,
-            "message" => "Errore: La data di laurea non pu?? essere nel passato"
+            "message" => "Errore: La data di laurea deve essere nel futuro"
             ]);
             exit();
         } elseif ($data_laurea_obj > $data_massima) {
             header("Content-Type: application/json");
             echo json_encode([
             "success" => false,
-            "message" => "Errore: La data di laurea non pu?? essere superiore a 2 anni nel futuro"
+            "message" => "Errore: La data di laurea deve essere nei prossimi due anni"
             ]);
             exit();
         }
@@ -129,7 +129,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $prospetto->generaProspettiLaureandi();
         $prospetto->popolaJSON(__DIR__ . '/data/ausiliario.json');
 
-        // Risposta JSON per AJAX (V023)
+        // Risposta JSON per AJAX
         header('Content-Type: application/json');
         echo json_encode([
             'success' => true,

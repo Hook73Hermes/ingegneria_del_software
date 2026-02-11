@@ -57,18 +57,62 @@
 
     <div class="test-section">
         <?php
-        require_once(__DIR__ . '/TEST/TESTconfigurazione.php');
-        $test2 = new TESTconfigurazione();
+        require_once(__DIR__ . '/TEST/TESTcarrieraLaureandoInformatica.php');
+        $test2 = new TESTcarrieraLaureandoInformatica();
         $test2->test();
+        ?>
+    </div>
+
+    <div class="test-section">
+        <?php
+        require_once(__DIR__ . '/TEST/TESTesameLaureando.php');
+        $test3 = new TESTesameLaureando();
+        $test3->test();
+        ?>
+    </div>
+
+    <div class="test-section">
+        <?php
+        require_once(__DIR__ . '/TEST/TESTgestioneCarrieraStudente.php');
+        $test4 = new TESTgestioneCarrieraStudente();
+        $test4->test();
+        ?>
+    </div>
+
+    <div class="test-section">
+        <?php
+        require_once(__DIR__ . '/TEST/TESTaccessoProspetti.php');
+        $test5 = new TESTaccessoProspetti();
+        $test5->test();
+        ?>
+    </div>
+
+    <div class="test-section">
+        <?php
+        require_once(__DIR__ . '/TEST/TESTprospettoPDFCommissione.php');
+        $test6 = new TESTprospettoPDFCommissione();
+        $test6->test();
+        ?>
+    </div>
+
+    <div class="test-section">
+        <?php
+        require_once(__DIR__ . '/TEST/TESTprospettoPDFLaureando.php');
+        $test7 = new TESTprospettoPDFLaureando();
+        $test7->test();
+        ?>
+    </div>
+
+    <div class="test-section">
+        <?php
+        require_once(__DIR__ . '/TEST/TESTconfigurazione.php');
+        $test8 = new TESTconfigurazione();
+        $test8->test();
         ?>
     </div>
 
     <div class="nav">
         <a href="index.php">Torna alla Home</a>
     </div>
-
-    <footer style="margin-top: 40px; text-align: center; color: #666; font-size: 0.9em;">
-        <p>Test Suite v2.0 - Migliorato con assertion reali (V025)</p>
-    </footer>
 </body>
 </html>
