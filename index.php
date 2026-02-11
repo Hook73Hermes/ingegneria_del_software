@@ -122,9 +122,9 @@
                 e.preventDefault();
 
                 showMessage('Loading...', 'info');
-                disableForm(true);
 
                 const formData = new FormData(form);
+                disableForm(true);
 
                 // Richiede le informazioni alla routine per generare prospetti
                 fetch('generaProspetti.php', {
