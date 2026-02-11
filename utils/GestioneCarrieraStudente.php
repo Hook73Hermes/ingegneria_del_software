@@ -6,7 +6,7 @@ class GestioneCarrieraStudente{
     }
     
     public static function restituisciAnagraficaStudente($matricola){
-        $json_anagrafica = file_get_contents(dirname(__DIR__) . '/data/' . $matricola . "_esami.json");
+        $json_anagrafica = file_get_contents(dirname(__DIR__) . '/data/' . $matricola . "_anagrafica.json");
         return $json_anagrafica;
     }
 }
