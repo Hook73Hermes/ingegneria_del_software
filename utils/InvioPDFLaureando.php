@@ -29,7 +29,7 @@ class InvioPDFLaureando {
      */
     public function __construct() {
         // Legge il file JSON unificato (V024)
-        $json_content = file_get_contents(dirname(__DIR__) . '/data/ausiliario.json');
+        $json_content = file_get_contents(dirname(__DIR__) . '/data/json/ausiliario.json');
         $dati = json_decode($json_content, true);
 
         // Estrae i campi dalla struttura unificata
@@ -90,7 +90,7 @@ Cordiali saluti
 Unita\' Didattica DII';
 
             // CORREZIONE 8: Path corretto con forward slash
-            $pdf_path = dirname(__DIR__) . '/data/pdf_generati/' . $studente_carriera->_matricola . '-prospetto.pdf';
+            $pdf_path = dirname(__DIR__) . '/data/pdf/' . $studente_carriera->_matricola . '-prospetto.pdf';
             
             if (file_exists($pdf_path)) {
                 $messaggio->addAttachment($pdf_path);

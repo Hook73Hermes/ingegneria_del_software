@@ -19,7 +19,7 @@ class CarrieraLaureandoInformatica extends CarrieraLaureando{
             $this->applicaBonus();
         }
 
-        $e_info = file_get_contents(dirname(__DIR__) . '/data/esami_informatici.json');
+        $e_info = file_get_contents(dirname(__DIR__) . '/data/json/esami_informatici.json');
         $esami_info = json_decode($e_info, true);
 
         for ($i = 0; $i < sizeof($this->_esami); $i++) {

@@ -74,7 +74,7 @@ class ProspettoPDFCommissione {
             $pdf = $pag_con_simulazione->generaContenuto($pdf);
         }
 
-        $percorso_output = dirname(__DIR__) . '/data/pdf_generati/';
+        $percorso_output = dirname(__DIR__) . '/data/pdf/';
         $nome_file = "prospettoCommissione.pdf";
         $pdf->Output('F', $percorso_output . $nome_file);
 

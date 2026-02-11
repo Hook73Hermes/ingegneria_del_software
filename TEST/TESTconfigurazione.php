@@ -18,7 +18,7 @@ class TESTconfigurazione{
     public function test_lettura_configurazione(){
         echo "<p>Test 1: Lettura file configurazione...</p>";
 
-        $path = dirname(__DIR__) . '/data/formule_laurea.json';
+        $path = dirname(__DIR__) . '/data/json/formule_laurea.json';
 
         // Il file deve esistere
         $this->assertTrue(
@@ -47,7 +47,7 @@ class TESTconfigurazione{
         echo "<p>Test 2: Modifica formula (solo in memory)...</p>";
 
         // Backup del file originario per poterlo ripristinare a fine lavoro
-        $path = dirname(__DIR__) . '/data/formule_laurea.json';
+        $path = dirname(__DIR__) . '/data/json/formule_laurea.json';
         $backup = file_get_contents($path);
 
         try {
