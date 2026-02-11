@@ -17,10 +17,11 @@ class TESTprospettoPDFLaureando{
         file_put_contents(dirname(__DIR__) . '/data/pdf_generati/123456-prospetto.pdf',$vecchio1);
 
         // Verifica che i prospetti siano diversi in funzione della data di laurea
-        if($aux == $aux1) {
-            echo "prospetti non generati correttamente";
+        echo "<h2>Test ProspettoPDFLaureando</h2>";
+        if ($aux1 != $aux) {
+            echo "<p style='color: green; font-weight: bold;'>TUTTI I TEST SUPERATI!</p>";
         } else {
-            echo "ProspettoPDFLaureando : TEST SUPERATI";
+            echo "<p style='color: red; font-weight: bold;'>TEST NON SUPERATI!</p>";
         }
     }
 }

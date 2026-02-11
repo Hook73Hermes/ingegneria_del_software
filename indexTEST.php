@@ -57,56 +57,56 @@
 
     <div class="test-section">
         <?php
-        require_once(__DIR__ . '/TEST/TESTcarrieraLaureandoInformatica.php');
-        $test2 = new TESTcarrieraLaureandoInformatica();
+        require_once(__DIR__ . '/TEST/TESTconfigurazione.php');
+        $test2 = new TESTconfigurazione();
         $test2->test();
         ?>
     </div>
 
     <div class="test-section">
         <?php
-        require_once(__DIR__ . '/TEST/TESTesameLaureando.php');
-        $test3 = new TESTesameLaureando();
+        require_once(__DIR__ . '/TEST/TESTcarrieraLaureandoInformatica.php');
+        $test3 = new TESTcarrieraLaureandoInformatica();
         $test3->test();
         ?>
     </div>
 
     <div class="test-section">
         <?php
-        require_once(__DIR__ . '/TEST/TESTgestioneCarrieraStudente.php');
-        $test4 = new TESTgestioneCarrieraStudente();
+        require_once(__DIR__ . '/TEST/TESTesameLaureando.php');
+        $test4 = new TESTesameLaureando();
         $test4->test();
         ?>
     </div>
 
     <div class="test-section">
         <?php
-        require_once(__DIR__ . '/TEST/TESTaccessoProspetti.php');
-        $test5 = new TESTaccessoProspetti();
+        require_once(__DIR__ . '/TEST/TESTgestioneCarrieraStudente.php');
+        $test5 = new TESTgestioneCarrieraStudente();
         $test5->test();
         ?>
     </div>
 
     <div class="test-section">
         <?php
-        require_once(__DIR__ . '/TEST/TESTprospettoPDFCommissione.php');
-        $test6 = new TESTprospettoPDFCommissione();
+        require_once(__DIR__ . '/TEST/TESTaccessoProspetti.php');
+        $test6 = new TESTaccessoProspetti();
         $test6->test();
         ?>
     </div>
 
     <div class="test-section">
         <?php
-        require_once(__DIR__ . '/TEST/TESTprospettoPDFLaureando.php');
-        $test7 = new TESTprospettoPDFLaureando();
+        require_once(__DIR__ . '/TEST/TESTprospettoPDFCommissione.php');
+        $test7 = new TESTprospettoPDFCommissione();
         $test7->test();
         ?>
     </div>
 
     <div class="test-section">
         <?php
-        require_once(__DIR__ . '/TEST/TESTconfigurazione.php');
-        $test8 = new TESTconfigurazione();
+        require_once(__DIR__ . '/TEST/TESTprospettoPDFLaureando.php');
+        $test8 = new TESTprospettoPDFLaureando();
         $test8->test();
         ?>
     </div>

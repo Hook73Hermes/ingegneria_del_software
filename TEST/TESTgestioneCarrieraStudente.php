@@ -10,10 +10,11 @@ class TESTgestioneCarrieraStudente{
         $aux2 = $aux1["Entries"]["Entry"]["nome"];
 
         // Verifica che il nome dello studente ricercato sia corretto
-        if($aux2 == "GIUSEPPE") {
-            echo "GestioneCarrieraStudente : TEST SUPERATI";
+        echo "<h2>Test GestioneCarrieraStudente</h2>";
+        if ($aux2 == "GIUSEPPE") {
+            echo "<p style='color: green; font-weight: bold;'>TUTTI I TEST SUPERATI!</p>";
         } else {
-            echo "GestioneCarrieraStudente non preleva correttamente i dati";
+            echo "<p style='color: red; font-weight: bold;'>TEST NON SUPERATI!</p>";
         }
     }
 }

@@ -11,12 +11,11 @@ class TESTesameLaureando{
         $aux1 = $ausiliaria->_votoEsame;
 
         // Verifica che i valori vengano aggiornati correttamente
-        if($aux != "STATISTICA") {
-            echo "errore nome esame su esameLaureando2";
-        } 
-        if($aux1 != 28) {
-            echo "errore voto esame su esameLaureando2";
-            echo "EsameLaureando : TEST SUPERATI";
+        echo "<h2>Test EsameLaureando</h2>";
+        if ($aux === "STATISTICA" && $aux1 === 28) {
+            echo "<p style='color: green; font-weight: bold;'>TUTTI I TEST SUPERATI!</p>";
+        } else {
+            echo "<p style='color: red; font-weight: bold;'>TEST NON SUPERATI!</p>";
         }
     }
 }

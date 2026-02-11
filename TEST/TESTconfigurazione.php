@@ -9,8 +9,6 @@ class TESTconfigurazione{
     // Esegue i test
     public function test(){
         echo "<h2>Test ModificaParametriConfigurazione</h2>";
-        echo "<p><em>Nota: Questi test NON modificano i file di produzione</em></p>";
-
         $this->test_lettura_configurazione();
         $this->test_modifica_formula();
         $this->mostraRisultati();
@@ -71,7 +69,6 @@ class TESTconfigurazione{
         } finally {
             // Ripristina il file originario per sicurezza
             file_put_contents($path, $backup);
-            echo " <span style='color: blue;'>File originale ripristinato (test sicuro)</span><br>";
         }
     }
 
