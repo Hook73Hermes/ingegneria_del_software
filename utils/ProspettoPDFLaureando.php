@@ -2,11 +2,8 @@
 require_once(__DIR__ . '/CarrieraLaureandoInformatica.php');
 require_once(__DIR__ . '/CarrieraLaureando.php');
 require_once(__DIR__ . '/fpdf.php');
-/**
-* @access public
-* @author franc
-*/
 
+// Crea il PDF del laureando
 class ProspettoPDFLaureando {
     /**
     * @AttributeType CarrieraLaureando
@@ -47,29 +44,24 @@ class ProspettoPDFLaureando {
     */
     public function generaProspetto() {
         // genera il prospetto in pdf e lo salva in un percorso specifico
-        // dati utili;
         $font_family = "Arial";
         $tipo_informatico = 0;
-        // indica se il laureando ?? informatico, viene modificato da solo
-
+        
+        // Setta pagina, font, dimensioni, testo, bordo, a capo, align
         $pdf = new FPDF();
         $pdf->AddPage();
         $pdf->SetFont($font_family, "", 16);
-        // --------------------- INTESTAZIONE : cdl e scritta prospetto --------------------------
-
         $pdf->Cell(0, 6, $this->_carrieraLaureando->_cdl, 0, 1, 'C');
-        // dimensioni, testo, bordo, a capo, align
         $pdf->Cell(0, 8, 'CARRIERA E SIMULAZIONE DEL VOTO DI LAUREA', 0, 1, 'C');
         $pdf->Ln(2);
-        // ------------------------------ INFORMAZIONI ANAGRAFICHE DELLO STUDENTE ------------------------------
 
+        // Anagrafica dello studente
         $pdf->SetFont($font_family, "", 9);
-        $anagrafica_stringa = "Matricola: " . $this->_matricola . //attenzione: quelli che sembrano spazi in realt?? sono &Nbsp perch?? fpdf non stampa spazi
+        $anagrafica_stringa = "Matricola: " . $this->_matricola . 
         "\nNome: " . $this->_carrieraLaureando->_nome .
         "\nCognome: " . $this->_carrieraLaureando->_cognome .
         "\nEmail: " . $this->_carrieraLaureando->_email .
         "\nData: " . $this->_dataLaurea;
-        //aggiungere bonus if inf
 
         if ($this->_carrieraLaureando->get_class() == "T. Ing. Informatica") {
             $tipo_informatico = 1;
@@ -77,12 +69,9 @@ class ProspettoPDFLaureando {
         }
 
         $pdf->MultiCell(0, 6, $anagrafica_stringa, 1, 'L');
-        //$pdf->Cell(0, 100 ,$anagrafica_stringa, 1 ,1, '');
         $pdf->Ln(3);
-        // spazio bianco
-
-        // ------------------------------- INFORMAZIONI SUGLI ESAMI ----------------------------------------
-        // 1 pag = 190 = 21cm con bordi di 1cm
+        
+        // Informazioni sugli esami
         $larghezza_piccola = 12;
         $altezza = 5.5;
         $larghezza_grande = 190 - (3 * $larghezza_piccola);
@@ -91,7 +80,6 @@ class ProspettoPDFLaureando {
             $pdf->Cell($larghezza_piccola, $altezza, "CFU", 1, 0, 'C');
             $pdf->Cell($larghezza_piccola, $altezza, "VOT", 1, 0, 'C');
             $pdf->Cell($larghezza_piccola, $altezza, "MED", 1, 1, 'C');
-            // newline
         } else {
             $larghezza_piccola -= 1;
             $larghezza_grande = 190 - (4 * $larghezza_piccola);
@@ -100,9 +88,9 @@ class ProspettoPDFLaureando {
             $pdf->Cell($larghezza_piccola, $altezza, "VOT", 1, 0, 'C');
             $pdf->Cell($larghezza_piccola, $altezza, "MED", 1, 0, 'C');
             $pdf->Cell($larghezza_piccola, $altezza, "INF", 1, 1, 'C');
-            // newline
         }
 
+        // Popola la griglia con gli esami
         $altezza = 4;
         $pdf->SetFont($font_family, "", 8);
         for ($i = 0; $i < sizeof($this->_carrieraLaureando->_esami); $i++) {
@@ -112,14 +100,14 @@ class ProspettoPDFLaureando {
             $pdf->Cell($larghezza_piccola, $altezza, $esame->_votoEsame, 1, 0, 'C');
             if ($tipo_informatico != 1) {
                 $pdf->Cell($larghezza_piccola, $altezza, ($esame->_faMedia == 1) ? 'X' : '', 1, 1, 'C');
-                // newline
             } else {
                 $pdf->Cell($larghezza_piccola, $altezza, ($esame->_faMedia == 1) ? 'X' : '', 1, 0, 'C');
                 $pdf->Cell($larghezza_piccola, $altezza, ($esame->_informatico == 1) ? 'X' : '', 1, 1, 'C');
             }
         }
         $pdf->Ln(5);
-        // ------------------------------- PARTE RIASUNTIVA ----------------------------------------
+        
+        // Parte riassuntiva finale
         $pdf->SetFont($font_family, "", 9);
         $string = "Media Pesata (M): " . $this->_carrieraLaureando->restituisciMedia() .
         "\nCrediti che fanno media (CFU): " . $this->_carrieraLaureando->creditiCheFannoMedia() .
@@ -132,7 +120,7 @@ class ProspettoPDFLaureando {
         $pdf->MultiCell(0, 6, $string, 1, "L");
         $percorso_output = dirname(__DIR__) . '/data/pdf/';
         $nome_file = $this->_matricola . "-prospetto.pdf";
-        $pdf->Output('F', $percorso_output . $nome_file); // f significa scrivi su file. senza quello non funziona
+        $pdf->Output('F', $percorso_output . $nome_file);
 
     }
     public function getCarriera()

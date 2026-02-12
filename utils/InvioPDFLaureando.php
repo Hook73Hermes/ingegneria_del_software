@@ -7,10 +7,7 @@ require_once(dirname(__DIR__) . '/PHPMailer/src/Exception.php');
 require_once(dirname(__DIR__) . '/PHPMailer/src/PHPMailer.php');
 require_once(dirname(__DIR__) . '/PHPMailer/src/SMTP.php');
 
-/**
- * @access public
- * @author franc
- */
+// Classe per inviare il PDF del prospetto
 class InvioPDFLaureando {
     /**
      * @AttributeType int[]
@@ -22,13 +19,9 @@ class InvioPDFLaureando {
     private $_cdl;
     private $_dataLaurea;
 
-    /**
-     * @access public
-     * @param int[] aMatricole
-     * @ParamType aMatricole int[]
-     */
+    // Costruttore
     public function __construct() {
-        // Legge il file JSON unificato (V024)
+        // Legge il file JSON unificato
         $json_content = file_get_contents(dirname(__DIR__) . '/data/json/ausiliario.json');
         $dati = json_decode($json_content, true);
 
@@ -38,10 +31,12 @@ class InvioPDFLaureando {
         $this->_dataLaurea = $dati['data_laurea'];
     }
 
+    // Invia i prospetti via mail
     public function invioProspetti() {
         $emails_inviate = [];
         $emails_fallite = [];
         
+        // Itera su tutte le matricola alle quali inviare la mail
         for ($j = 0; $j < sizeof($this->_matricole); $j++) {
             $prospetto = new ProspettoPDFLaureando($this->_matricole[$j], $this->_cdl, $this->_dataLaurea);
             $risultato = $this->inviaProspetto($prospetto->_carrieraLaureando);
@@ -70,6 +65,7 @@ class InvioPDFLaureando {
             $messaggio = "Email inviate a $inviati destinatari su $totale. $falliti invii falliti.";
         }
         
+        // Ritorna il JSON con i risultati dell'invio
         return [
             'message' => $messaggio,
             'inviati' => $emails_inviate,
@@ -77,22 +73,18 @@ class InvioPDFLaureando {
         ];
     }
 
-    /**
-     * @access public
-     * @return array
-     * @ReturnType array
-     */
+    // Invia il rispettivo prospetto a un singolo laureato
     public function inviaProspetto($studente_carriera) {
         try {
-            // CORREZIONE 1: Aggiungi 'true' per abilitare eccezioni
+            // Creazione di un PHPMailer con eccezioni abilitate
             $messaggio = new \PHPMailer\PHPMailer\PHPMailer(true);
             
-            // CORREZIONE 2: Abilita SMTP mode
+            // Abilita SMTP
             $messaggio->isSMTP();
             $messaggio->clearAddresses();
             $messaggio->clearAttachments();
             
-            // Configurazione server SMTP
+            // Configura server SMTP
             // $messaggio->Host = 'mixer.unipi.it';
             // $messaggio->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;  // CORREZIONE 3: Usa costante
             // $messaggio->SMTPAuth = false;
@@ -104,17 +96,15 @@ class InvioPDFLaureando {
             $messaggio->Password = '0f2959a9a12f9f';  // ← Aggiungi
             $messaggio->Port = 587;  // o 2525
 
-            // CORREZIONE 4: Usa setFrom() invece di From
+            // Mittente
             $messaggio->setFrom('no-reply-laureandosi@ing.unipi.it', 'Sistema Laureandosi');
             
-            // CORREZIONE 5: Usa addAddress() (lowercase)
+            // Destinatario
             $messaggio->addAddress($studente_carriera->_email);
             
             // Oggetto e corpo
             $messaggio->Subject = 'Appello di Laurea in Ingegneria - Indicatori per Voto di Laurea';
-            $messaggio->isHTML(false);  // CORREZIONE 6: Specifica tipo contenuto
-            
-            // CORREZIONE 7: Rimuovi stripslashes (non necessario) e correggi encoding
+            $messaggio->isHTML(false);
             $messaggio->Body = 'Gentile laureando/laureanda,
 
 Allego un prospetto contenente la sua carriera, gli indicatori e la formula che la commissione adopera per determinare il voto di laurea.
@@ -128,16 +118,15 @@ Alcune spiegazioni:
 Cordiali saluti
 DII';
 
-            // CORREZIONE 8: Path corretto con forward slash
+            // Se il PDF è presente lo attacca
             $pdf_path = dirname(__DIR__) . '/data/pdf/' . $studente_carriera->_matricola . '-prospetto.pdf';
-            
             if (file_exists($pdf_path)) {
                 $messaggio->addAttachment($pdf_path);
             } else {
                 throw new Exception("File PDF non trovato: " . $pdf_path);
             }
 
-            // CORREZIONE 9: send() invece di Send()
+            // Invia la mail
             $messaggio->send();
             
             // Restituisce successo

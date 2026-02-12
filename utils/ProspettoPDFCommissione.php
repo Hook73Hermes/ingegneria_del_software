@@ -1,10 +1,6 @@
 <?php
 require_once(__DIR__ . '/ProspettoConSimulazione.php');
 
-/**
-* @access public
-* @author franc
-*/
 class ProspettoPDFCommissione {
     /**
     * @AttributeType int[]
@@ -48,7 +44,8 @@ class ProspettoPDFCommissione {
         $font_family = "Arial";
         $pdf->AddPage();
         $pdf->SetFont($font_family, "", 14);
-        // -------- PRIMA PAGINA CON LA LISTA ---------------------
+
+        // Prima pagina con la lista
         $pdf->Cell(0, 6, $this->_cdl, 0, 1, 'C');
         $pdf->Ln(2);
         $pdf->SetFont($font_family, "", 16);
@@ -67,8 +64,7 @@ class ProspettoPDFCommissione {
             $pdf = $pag_con_simulazione->generaRiga($pdf);
         }
 
-        // -------- PAGINE CON LA CARRIERA ---------------------
-        // aggiungo la pagina di ogni laureando
+        // Pagina con la carriera
         for ($i = 0; $i < sizeof($this->_matricole); $i++) {
             $pag_con_simulazione = new ProspettoConSimulazione($this->_matricole[$i], $this->_cdl, $this->_dataLaurea);
             $pdf = $pag_con_simulazione->generaContenuto($pdf);
@@ -79,6 +75,8 @@ class ProspettoPDFCommissione {
         $pdf->Output('F', $percorso_output . $nome_file);
 
     }
+
+    // Genera i prospetti per ogni laureando
     public function generaProspettiLaureandi()
     {
         for ($i = 0; $i < sizeof($this->_matricole); $i++) {
@@ -88,7 +86,7 @@ class ProspettoPDFCommissione {
     }
     /**
     * Salva i dati della sessione in un unico file JSON strutturato
-    * Unifica matricole, CDL e data in un unico file (V024)
+    * Unifica matricole, CDL e data in un unico file
     *
     * @param string $nomeFile Path del file JSON
     */

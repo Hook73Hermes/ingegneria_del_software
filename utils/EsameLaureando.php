@@ -1,9 +1,6 @@
 <?php
 
-/**
-* @access public
-* @author franc
-*/
+// Classe che rappresenta l'esame di un laureando
 class EsameLaureando {
     /**
     * @AttributeType string
