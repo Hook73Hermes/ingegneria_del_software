@@ -47,11 +47,9 @@
         <a href="indexCONF.php">Configuratore</a>
     </div>
 
-    /*
-    Seguono i test relativi a tutte le funzionalità della cartella utils/
+    <!--Seguono i test relativi a tutte le funzionalità della cartella utils/
     In ogni test viene creata la classe Tester e chiamato il rispettivo metodo Tester.test()
-    I risultati dei test appaiono a schermo
-    */
+    I risultati dei test appaiono a schermo-->
 
     <div class="test-section">
         <?php
@@ -95,25 +93,17 @@
 
     <div class="test-section">
         <?php
-        require_once(__DIR__ . '/TEST/TESTaccessoProspetti.php');
-        $test6 = new TESTaccessoProspetti();
+        require_once(__DIR__ . '/TEST/TESTprospettoPDFCommissione.php');
+        $test6 = new TESTprospettoPDFCommissione();
         $test6->test();
         ?>
     </div>
 
     <div class="test-section">
         <?php
-        require_once(__DIR__ . '/TEST/TESTprospettoPDFCommissione.php');
-        $test7 = new TESTprospettoPDFCommissione();
-        $test7->test();
-        ?>
-    </div>
-
-    <div class="test-section">
-        <?php
         require_once(__DIR__ . '/TEST/TESTprospettoPDFLaureando.php');
-        $test8 = new TESTprospettoPDFLaureando();
-        $test8->test();
+        $test7 = new TESTprospettoPDFLaureando();
+        $test7->test();
         ?>
     </div>
 </body>

@@ -117,7 +117,7 @@
         const formInvia = document.getElementById('form-invio-email');
         const messageContainer = document.getElementById('message-container');
 
-        // ========== FORM GENERA PROSPETTI ==========
+        // Form per generare i prospetti di laurea
         if (formGenera) {
             // Quando il form viene inviato la pagina non viene refreshata (comportamento default)
             formGenera.addEventListener('submit', function(e) {
@@ -128,7 +128,7 @@
                 const formData = new FormData(formGenera);
                 disableForm(formGenera, true);
 
-                // Richiede le informazioni alla routine per generare prospetti
+                // Richiede l'esecuzione della routine per generare i prospetti
                 fetch('generaProspetti.php', {
                     method: 'POST',
                     body: formData
@@ -154,8 +154,9 @@
             });
         }
 
-        // ========== FORM INVIA EMAIL (NUOVO) ==========
+        // Form per inviare i prospetti di laurea
         if (formInvia) {
+            // Quando il form viene inviato la pagina non viene refreshata (comportamento default)
             formInvia.addEventListener('submit', function(e) {
                 e.preventDefault();
 
@@ -164,13 +165,14 @@
                 const formData = new FormData(formInvia);
                 disableForm(formInvia, true);
 
-                // Richiede invio email
+                // Richiede l'esecuzione della routine per inviare via mail i prospetti
                 fetch('inviaProspetti.php', {
                     method: 'POST',
                     body: formData
                 })
                 .then(response => response.json())
                 .then(data => {
+                    // In caso di successo il form viene resettato dopo 5 secondi
                     if (data.success) {
                         showMessage(data.message, 'success');
                         setTimeout(() => {
@@ -189,12 +191,13 @@
         }
     });
 
-    // Mostra a video il messaggio 
+    // Mostra a schermo il messaggio 
     function showMessage(message, type) {
         const container = document.getElementById('message-container');
         container.textContent = message;
         container.style.display = 'block';
 
+        // Il messaggio può essere generico, di successo (verde) o di errore (rooso)
         if (type == 'success') {
             container.style.backgroundColor = '#d4edda';
             container.style.color = '#155724';
@@ -218,11 +221,13 @@
 
     // Disabilita l'utilizzo del form durante il submit
     function disableForm(form, disabled) {
+        // Disabilita la scrittura negli input
         const inputs = form.querySelectorAll('input, select, textarea, button');
         inputs.forEach(input => {
             input.disabled = disabled;
         });
 
+        // DIsabilita il pulsante di submit
         const submitBtn = form.querySelector('button[type="submit"]');
         if (disabled) {
             submitBtn.setAttribute('data-original-text', submitBtn.textContent);

@@ -27,9 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'message' => 'Errore durante l\'invio: ' . $e->getMessage()
         ]);
     }
-    
 } else {
-    // Metodo non POST
+    // Errore se il metodo non è POST (l'utente non ha usato il form)
     header('Content-Type: application/json');
     echo json_encode([
         'success' => false,

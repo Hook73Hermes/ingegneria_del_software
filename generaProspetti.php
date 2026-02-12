@@ -8,8 +8,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (!isset($_POST["matricole"]) || empty($_POST["matricole"])) {
         header("Content-Type: application/json");
         echo json_encode([
-        "success" => false,
-        "message" => "Errore: Nessuna matricola fornita"
+            "success" => false,
+            "message" => "Errore: Nessuna matricola fornita"
         ]);
         exit();
     }
@@ -18,8 +18,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (!preg_match('/^\s*\d+(\s*,\s*\d+)*\s*$/', $_POST["matricole"])) {
         header("Content-Type: application/json");
         echo json_encode([
-        "success" => false,
-        "message" => "Errore: Formato matricole non valido. Usa solo numeri separati da virgola (es: 123456, 234567)"
+            "success" => false,
+            "message" => "Errore: Formato matricole non valido. Usa solo numeri separati da virgola (es: 123456, 234567)"
         ]);
         exit();
     }
@@ -31,8 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (!isset($_POST["data_laurea"]) || empty($_POST["data_laurea"])) {
         header("Content-Type: application/json");
         echo json_encode([
-        "success" => false,
-        "message" => "Errore: Data di laurea non fornita"
+            "success" => false,
+            "message" => "Errore: Data di laurea non fornita"
         ]);
         exit();
     }
@@ -44,8 +44,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $data_laurea)) {
         header("Content-Type: application/json");
         echo json_encode([
-        "success" => false,
-        "message" => "Errore: Formato data non valido. Usa il formato AAAA-MM-GG (es: 2024-07-15)"
+            "success" => false,
+            "message" => "Errore: Formato data non valido. Usa il formato AAAA-MM-GG (es: 2024-07-15)"
         ]);
         exit();
     }
@@ -55,8 +55,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ($timestamp === false) {
         header("Content-Type: application/json");
         echo json_encode([
-        "success" => false,
-        "message" => "Errore: Data non valida. Controlla che giorno e mese siano corretti"
+            "success" => false,
+            "message" => "Errore: Data non valida. Controlla che giorno e mese siano corretti"
         ]);
         exit();
     }
@@ -72,15 +72,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ($data_laurea_obj < $oggi) {
         header("Content-Type: application/json");
         echo json_encode([
-        "success" => false,
-        "message" => "Errore: La data di laurea deve essere nel futuro"
+            "success" => false,
+            "message" => "Errore: La data di laurea deve essere nel futuro"
         ]);
         exit();
     } elseif ($data_laurea_obj > $data_massima) {
         header("Content-Type: application/json");
         echo json_encode([
-        "success" => false,
-        "message" => "Errore: La data di laurea deve essere nei prossimi due anni"
+            "success" => false,
+            "message" => "Errore: La data di laurea deve essere nei prossimi due anni"
         ]);
         exit();
     }
@@ -89,8 +89,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (!isset($_POST["cdl"]) || empty($_POST["cdl"])) {
         header("Content-Type: application/json");
         echo json_encode([
-        "success" => false,
-        "message" => "Errore: Corso di Laurea non fornito"
+            "success" => false,
+            "message" => "Errore: Corso di Laurea non fornito"
         ]);
         exit();
     }
@@ -113,8 +113,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (!in_array($_POST["cdl"], $cdl_whitelist, true)) {
         header("Content-Type: application/json");
         echo json_encode([
-        "success" => false,
-        "message" => "Errore: Corso di Laurea non valido. Seleziona un corso dalla lista."
+            "success" => false,
+            "message" => "Errore: Corso di Laurea non valido. Seleziona un corso dalla lista."
         ]);
         exit();
     }

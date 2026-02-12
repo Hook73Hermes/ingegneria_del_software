@@ -122,9 +122,11 @@
             // Variabile locale verificata
             $cdl = $_POST["cdl"];
 
-            // Modifica effettiva dei parametri (cambiati se e solo se non vuoti)
+            // Modifica parametri
             if (isset($_POST["formula"]) && isset($_POST["esami_informatici"])) {
                 $array_inf = array_filter(array_map("trim", explode(",", $_POST["esami_informatici"])));
+
+                // Modifica solamente i parametri non vuoti
                 $val = new ModificaParametriConfigurazione($cdl, $array_inf);
                 if (!empty($_POST["formula"])) {
                     $val->modificaFormula($_POST["formula"]);
