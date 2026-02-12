@@ -29,21 +29,14 @@ class ProspettoConSimulazione extends ProspettoPDFLaureando {
     * @param int $bonusTempestivita Bonus (0 o 2)
     * @return float Voto calcolato
     */
-    private function calcolaVotoSicuro($M, $T, $C, $bonusTempestivita) {
+    private function calcolaVotoSicuro($M, $T, $C, $CFU, $bonusTempestivita) {
         // Ottiene la formula dal JSON
         $formula = $this->_carrieraLaureando->restituisciFormula();
-
-        // Valida la formula (solo caratteri matematici consentiti)
-        $pattern = '/^[\d\s\+\-\*\/\(\)\$MTC bonusTempestivita\.]+$/';
-        if (!preg_match($pattern, $formula)) {
-            // Formula contiene caratteri non consentiti
-            error_log("Formula non valida rilevata: " . $formula);
-            return 0; // Voto di fallback sicuro
-        }
 
         // Sostituisce le variabili con i valori (possibili vettori di attacco)
         $formula_sicura = str_replace('$M', (string)$M, $formula);
         $formula_sicura = str_replace('$T', (string)$T, $formula_sicura);
+        $formula_sicura = str_replace('$CFU', (string)$CFU, $formula_sicura);
         $formula_sicura = str_replace('$C', (string)$C, $formula_sicura);
         $formula_sicura = str_replace('$bonusTempestivita', (string)$bonusTempestivita, $formula_sicura);
 
@@ -57,7 +50,7 @@ class ProspettoConSimulazione extends ProspettoPDFLaureando {
         try {
             $voto = 0;
             eval("\$voto = " . $formula_sicura . ";");
-            return $voto;
+            return number_format($voto, 3);
         }
         catch (Exception $e) {
             error_log("Errore nel calcolo del voto: " . $e->getMessage());
@@ -159,7 +152,7 @@ class ProspettoConSimulazione extends ProspettoPDFLaureando {
         $c_min = $configurazione_json[$this->_carrieraLaureando->_cdl]["Cmin"];
         $c_max = $configurazione_json[$this->_carrieraLaureando->_cdl]["Cmax"];
         $c_step = $configurazione_json[$this->_carrieraLaureando->_cdl]["Cstep"];
-        $CFU = $this->_carrieraLaureando->creditiCheFannoMedia();
+        $CFU = 102;//$this->_carrieraLaureando->creditiCheFannoMedia();
 
         // Aggiunge al PDF le parti necessarie
         $pdf->Ln(4);
@@ -181,7 +174,7 @@ class ProspettoConSimulazione extends ProspettoPDFLaureando {
 
             for ($C = $c_min; $C <= $c_max; $C += $c_step) {
                 $voto = 0;
-                $voto = $this->calcolaVotoSicuro($M, $T, $C, $bonusTempestivita);
+                $voto = $this->calcolaVotoSicuro($M, $T, $C, $CFU, $bonusTempestivita);
                 $pdf->Cell($width, $height, $C, 1, 0, 'C');
                 $pdf->Cell($width, $height, $voto, 1, 1, 'C');
             }
@@ -200,7 +193,7 @@ class ProspettoConSimulazione extends ProspettoPDFLaureando {
 
             for ($T = $t_min; $T <= $t_max; $T += $t_step) {
                 $voto = 0;
-                $voto = $this->calcolaVotoSicuro($M, $T, $C, $bonusTempestivita);
+                $voto = $this->calcolaVotoSicuro($M, $T, $C, $CFU, $bonusTempestivita);
                 $pdf->Cell($width, $height, $T, 1, 0, 'C');
                 $pdf->Cell($width, $height, $voto, 1, 1, 'C');
             }

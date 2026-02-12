@@ -20,7 +20,7 @@
         "Cstep": 0
     },
     "T. Ing. Informatica": {
-        "formula": "($M * 110) \/ 30",
+        "formula": "$M * 11 \/ 3 + $C",
         "cfu_richiesti": 177,
         "Tmin": 0,
         "Tmax": 0,
@@ -88,6 +88,7 @@
         "Tstep": 0,
         "Cmin": 1,
         "Cmax": 11,
-        "Cstep": 1
+        "Cstep": 1,
+        "valore_lode": 1
     }
 }
