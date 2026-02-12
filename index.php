@@ -73,7 +73,7 @@
         <a href="indexCONF.php">Configuratore</a>
     </div>
 
-    <form action="generaProspetti.php" method="post">
+    <form action="generaProspetti.php" method="post" id="form-genera-prospetti">
         <p>Cdl:</p>
         <select name="cdl">
             <option name="cdl">T. Ing. Informatica</option>
@@ -97,7 +97,7 @@
         <button type="submit">Crea Prospetti</button>
     </form>
 
-    <form action="inviaProspetti.php" method="post">
+    <form action="inviaProspetti.php" method="post" id="form-invio-email">
         <button type="submit">Invia Prospetti</button>
     </form>
 
@@ -113,18 +113,20 @@
     <script>
     // Gestisce gli eventi legati al form
     document.addEventListener('DOMContentLoaded', function() {
-        const form = document.querySelector('form[action="generaProspetti.php"]');
+        const formGenera = document.getElementById('form-genera-prospetti');
+        const formInvia = document.getElementById('form-invio-email');
         const messageContainer = document.getElementById('message-container');
 
-        if (form) {
+        // ========== FORM GENERA PROSPETTI ==========
+        if (formGenera) {
             // Quando il form viene inviato la pagina non viene refreshata (comportamento default)
-            form.addEventListener('submit', function(e) {
+            formGenera.addEventListener('submit', function(e) {
                 e.preventDefault();
 
                 showMessage('Loading...', 'info');
 
-                const formData = new FormData(form);
-                disableForm(true);
+                const formData = new FormData(formGenera);
+                disableForm(formGenera, true);
 
                 // Richiede le informazioni alla routine per generare prospetti
                 fetch('generaProspetti.php', {
@@ -137,17 +139,51 @@
                     if (data.success) {
                         showMessage('Prospetti generati con successo!', 'success');
                         setTimeout(() => {
-                            form.reset();
+                            formGenera.reset();
                             hideMessage();
                         }, 3000);
                     } else {
                         showMessage(data.message, 'error');
                     }
-                    disableForm(false);
+                    disableForm(formGenera, false);
                 })
                 .catch(error => {
                     showMessage('Errore di connessione: ' + error.message, 'error');
-                    disableForm(false);
+                    disableForm(formGenera, false);
+                });
+            });
+        }
+
+        // ========== FORM INVIA EMAIL (NUOVO) ==========
+        if (formInvia) {
+            formInvia.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                showMessage('Invio email in corso...', 'info');
+
+                const formData = new FormData(formInvia);
+                disableForm(formInvia, true);
+
+                // Richiede invio email
+                fetch('inviaProspetti.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showMessage(data.message, 'success');
+                        setTimeout(() => {
+                            hideMessage();
+                        }, 5000);
+                    } else {
+                        showMessage(data.message, 'error');
+                    }
+                    disableForm(formInvia, false);
+                })
+                .catch(error => {
+                    showMessage('Errore di connessione: ' + error.message, 'error');
+                    disableForm(formInvia, false);
                 });
             });
         }
@@ -180,9 +216,8 @@
         container.style.display = 'none';
     }
 
-    // DIsabilita l'utilizzo del form durante il submit
-    function disableForm(disabled) {
-        const form = document.querySelector('form[action="generaProspetti.php"]');
+    // Disabilita l'utilizzo del form durante il submit
+    function disableForm(form, disabled) {
         const inputs = form.querySelectorAll('input, select, textarea, button');
         inputs.forEach(input => {
             input.disabled = disabled;

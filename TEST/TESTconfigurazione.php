@@ -87,10 +87,7 @@ class TESTconfigurazione{
     private function mostraRisultati() {
         $totale = $this->passati + $this->falliti;
         echo "<hr>";
-        echo "<h3>Risultati:</h3>";
-        echo "<p><strong>Passati:</strong> <span style='color: green;'>{$this->passati}/{$totale}</span></p>";
-        echo "<p><strong>Falliti:</strong> <span style='color: red;'>{$this->falliti}/{$totale}</span></p>";
-
+        
         if ($this->falliti === 0) {
             echo "<p style='color: green; font-weight: bold;'>TUTTI I TEST SUPERATI!</p>";
         } else {
