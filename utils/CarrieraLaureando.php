@@ -64,7 +64,7 @@ class CarrieraLaureando {
                 $somma_cfu_tot += $esami[$i]->_cfu;
             }
         }
-        $this->_media = $somma_voto_cfu / $somma_cfu_tot;
+        $this->_media = number_format($somma_voto_cfu / $somma_cfu_tot, 3);
         return $this->_media;
     }
 

@@ -34,7 +34,7 @@ class CarrieraLaureandoInformatica extends CarrieraLaureando{
                 $this->_esami[$i]->_informatico = 1;
             }
         }
-        $this->mediaEsamiInformatici = $this->calcolaMediaEsamiInformatici();
+        $this->mediaEsamiInformatici = number_format($this->calcolaMediaEsamiInformatici(), 3);
         $this->calcola_media();
     }
 

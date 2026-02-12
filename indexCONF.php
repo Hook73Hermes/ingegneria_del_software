@@ -96,10 +96,30 @@ if (!$is_authenticated) {
             margin-top: 15px;
             font-size: 14px;
         }
+        .nav {
+            margin: 20px 0;
+        }
+        .nav a {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .nav a:hover {
+            background: #0056b3;
+        }
     </style>
 </head>
 <body>
     <h1>Accesso Configurazione</h1>
+
+    <div class="nav">
+        <a href="index.php">Torna alla Home</a>
+        <a href="indexTEST.php">Test Suite</a>
+    </div>
     
     <div class="login-box">
         <?php if ($login_error): ?>
