@@ -98,11 +98,11 @@
     </form>
 
     <form action="inviaProspetti.php" method="post" id="form-invio-email">
-        <button type="submit">Invia Prospetti</button>
+        <button type="submit">Invia Prospetti ai Laureandi</button>
     </form>
 
     <form action="visualizzaProspetti.php" method="post" id="form-visualizza-prospetti">
-        <button type="submit">Visualizza Prospetti</button>
+        <button type="submit">Visualizza Prospetto della Commissione</button>
     </form>
 
     <?php

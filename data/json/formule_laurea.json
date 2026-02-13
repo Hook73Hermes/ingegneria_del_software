@@ -89,6 +89,6 @@
         "Cmin": 1,
         "Cmax": 11,
         "Cstep": 1,
-        "valore_lode": 1
+        "valore_lode": 0
     }
 }
