@@ -50,8 +50,16 @@ class CarrieraLaureandoInformatica extends CarrieraLaureando{
         $somma = 0;
         $numero = 0;
         for ($i = 0; $i < sizeof($this->_esami); $i++) {
-            if ($this->_esami[$i]->_faMedia == 1) {
-                $somma += intval($this->_esami[$i]->_votoEsame);
+            if ($this->_esami[$i]->_faMedia == 1 && $this->_esami[$i]->_informatico == 1) {
+                $voto = $this->_esami[$i]->_votoEsame;
+
+                // Calcola con il valore giusto della lode
+                if (preg_replace('/\s+/', '', $voto) == "30elode") {
+                    $voto = strval(30 + $this->_valore_lode);
+                }
+                
+                // Converte voto a intero
+                $somma += intval($voto);
                 $numero++;
             }
         }
@@ -67,12 +75,12 @@ class CarrieraLaureandoInformatica extends CarrieraLaureando{
     // Applica il bonus
     private function applicaBonus(){
 
-        $voto_min = 33;
+        $voto_min = 30 + $this->_valore_lode;
         $indice_min = 0;
 
         for ($i = 0; $i < sizeof($this->_esami); $i++) {
             $esame = $this->_esami[$i];
-            if ($esame->_faMedia == 1 && $esame->_votoEsame < $voto_min) {
+            if ($esame->_faMedia == 1 && $esame->_votoEsame <= $voto_min) {
                 $voto_min = $esame->_votoEsame;
                 $indice_min = $i;
             }

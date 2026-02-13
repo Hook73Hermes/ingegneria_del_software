@@ -14,7 +14,7 @@ class CarrieraLaureando {
     public $_esami;
     private $_media;
     private $_formulaVotoLaurea;
-    private $_valore_lode = 0;
+    public $_valore_lode = 0;
 
     public function __construct($matricola, $cdl_in){
         $this->_matricola = $matricola;
@@ -65,8 +65,15 @@ class CarrieraLaureando {
 
         for ($i = 0; $i < sizeof($esami); $i++) {
             if ($esami[$i]->_faMedia == 1) {
+                $voto = $esami[$i]->_votoEsame;
+
+                // Calcola con il valore giusto della lode
+                if (preg_replace('/\s+/', '', $voto) == "30elode") {
+                    $voto = strval(30 + $this->_valore_lode);
+                }
+
                 // Conversione del voto a intero
-                $somma_voto_cfu += intval($esami[$i]->_votoEsame) * $esami[$i]->_cfu;
+                $somma_voto_cfu += intval($voto) * $esami[$i]->_cfu;
                 $somma_cfu_tot += $esami[$i]->_cfu;
             }
         }
@@ -118,14 +125,7 @@ class CarrieraLaureando {
         // Esami con parametri malformati non vengono inseriti
         if ($nome != "TEST DI VALUTAZIONE DI INGEGNERIA" && $nome != null) {
             // Rimuove gli spazi bianchi
-            $voto = $voto !== null ? preg_replace('/\s+/', '', $voto) : '';
-
-            // Calcolo con il valore giusto della lode
-            if ($voto == "30elode") {
-                $voto = strval(30 + $this->_valore_lode);
-            }
-
-            error_log($voto);
+            $voto = $voto !== null ? trim($voto) : '';
 
             // Creazione della classe esame da ritornare
             $esame = new EsameLaureando();
