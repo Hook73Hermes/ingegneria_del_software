@@ -74,7 +74,7 @@ class InvioPDFLaureando {
     }
 
     // Invia il rispettivo prospetto a un singolo laureato
-    public function inviaProspetto($studente_carriera) {
+    private function inviaProspetto($studente_carriera) {
         try {
             // Creazione di un PHPMailer con eccezioni abilitate
             $messaggio = new \PHPMailer\PHPMailer\PHPMailer(true);
