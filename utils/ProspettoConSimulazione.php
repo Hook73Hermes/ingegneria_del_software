@@ -213,7 +213,11 @@ class ProspettoConSimulazione extends ProspettoPDFLaureando {
         $height = 5;
         $pdf->Cell($width, $height, $this->_carrieraLaureando->_cognome, 1, 0, 'L');
         $pdf->Cell($width, $height, $this->_carrieraLaureando->_nome, 1, 0, 'L');
-        $pdf->Cell($width, $height, "", 1, 0, 'C');
+        $cdl = $this->_carrieraLaureando->_cdl;
+        if (strlen($cdl) > 24) {
+            $cdl = substr($this->_carrieraLaureando->_cdl, 0, 21) . "...";
+        }
+        $pdf->Cell($width, $height, $cdl, 1, 0, 'C');
         $pdf->Cell($width, $height, "/110", 1, 1, 'C');
         return $pdf;
     }
