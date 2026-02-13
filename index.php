@@ -101,6 +101,10 @@
         <button type="submit">Invia Prospetti</button>
     </form>
 
+    <form action="visualizzaProspetti.php" method="post" id="form-visualizza-prospetti">
+        <button type="submit">Visualizza Prospetti</button>
+    </form>
+
     <?php
     if (isset($_GET["aux"])) {
         $aux = $_GET["aux"];
@@ -115,6 +119,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         const formGenera = document.getElementById('form-genera-prospetti');
         const formInvia = document.getElementById('form-invio-email');
+        const formVisualizza = document.getElementById('form-visualizza-prospetti');
         const messageContainer = document.getElementById('message-container');
 
         // Form per generare i prospetti di laurea
@@ -186,6 +191,47 @@
                 .catch(error => {
                     showMessage('Errore di connessione: ' + error.message, 'error');
                     disableForm(formInvia, false);
+                });
+            });
+        }
+
+        if (formVisualizza) {
+            // Quando il form viene inviato la pagina non viene refreshata (comportamento default)
+            formVisualizza.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                showMessage('Apertura PDF in corso...', 'info');
+
+                const formData = new FormData(formVisualizza);
+                disableForm(formVisualizza, true);
+
+                // Richiede l'esecuzione della routine per inviare via mail i prospetti
+                fetch('visualizzaProspetti.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // In caso di successo il form viene resettato dopo 5 secondi
+                    if (data.success) {
+                        showMessage(data.message, 'success');
+
+                        // Apertura del PDF in una nuova scheda
+                        if (data.pdf_url) {
+                            window.open(data.pdf_url, '_blank');
+                        }
+
+                        setTimeout(() => {
+                            hideMessage();
+                        }, 5000);
+                    } else {
+                        showMessage(data.message, 'error');
+                    }
+                    disableForm(formVisualizza, false);
+                })
+                .catch(error => {
+                    showMessage('Errore di sistema: ' + error.message, 'error');
+                    disableForm(formVisualizza, false);
                 });
             });
         }
