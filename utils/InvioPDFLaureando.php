@@ -85,16 +85,16 @@ class InvioPDFLaureando {
             $messaggio->clearAttachments();
             
             // Configura server SMTP
-            // $messaggio->Host = 'mixer.unipi.it';
-            // $messaggio->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;  // CORREZIONE 3: Usa costante
-            // $messaggio->SMTPAuth = false;
-            // $messaggio->Port = 25;
-            $messaggio->Host = 'sandbox.smtp.mailtrap.io';
-            $messaggio->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $messaggio->SMTPAuth = true;  // ← Abilita auth
-            $messaggio->Username = '665f56acd98eb0';  // ← Aggiungi
-            $messaggio->Password = '0f2959a9a12f9f';  // ← Aggiungi
-            $messaggio->Port = 587;  // o 2525
+            $messaggio->Host = 'mixer.unipi.it';
+            $messaggio->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;  // CORREZIONE 3: Usa costante
+            $messaggio->SMTPAuth = false;
+            $messaggio->Port = 25;
+            // $messaggio->Host = 'sandbox.smtp.mailtrap.io';
+            // $messaggio->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            // $messaggio->SMTPAuth = true;  // ← Abilita auth
+            // $messaggio->Username = '665f56acd98eb0';  // ← Aggiungi
+            // $messaggio->Password = '0f2959a9a12f9f';  // ← Aggiungi
+            // $messaggio->Port = 587;  // o 2525
 
             // Mittente
             $messaggio->setFrom('no-reply-laureandosi@ing.unipi.it', 'Sistema Laureandosi');
