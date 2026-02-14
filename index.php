@@ -94,15 +94,15 @@
         <p>Data Laurea:</p>
         <input type="date" name="data_laurea"/>
 
-        <button type="submit">Crea Prospetti</button>
+        <button type="submit">Genera Prospetti</button>
     </form>
 
     <form action="inviaProspetti.php" method="post" id="form-invio-email">
-        <button type="submit">Invia Prospetti ai Laureandi</button>
+        <button type="submit">Invia Prospetti</button>
     </form>
 
     <form action="visualizzaProspetti.php" method="post" id="form-visualizza-prospetti">
-        <button type="submit">Visualizza Prospetto della Commissione</button>
+        <button type="submit">Visualizza Prospetti</button>
     </form>
 
     <?php
