@@ -28,7 +28,7 @@
         "Cmin": 1,
         "Cmax": 7,
         "Cstep": 1,
-        "valore_lode": 1
+        "valore_lode": 3
     },
     "T. Ing. delle Telecomunicazioni": {
         "formula": "$M * 11 \/ 3 + $C",
